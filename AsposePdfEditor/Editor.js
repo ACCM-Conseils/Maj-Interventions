@@ -1153,10 +1153,11 @@ function sendFile() {
 
 
     shapes2 = [];
+    alert("Start");
 
     for (var i = 0; i < shapes.length; i++) {
 
-        tempShape = { x: shapes[i].x, y: shapes[i].y, w: shapes[i].w, h: shapes[i].h, p: shapes[i].p, f: shapes[i].f, t: shapes[i].t, n: shapes[i].n, s: shapes[i].s, c: shapes[i].c, wt: shapes[i].wt, st: shapes[i].st, ratio: shapes[i].ratio, imfile: "", imName: shapes[i].imName, Itype: shapes[i].Itype, fieldType: shapes[i].fieldType };
+        tempShape = { x: parseFloat(shapes[i].x).toFixed(2), y: parseFloat(shapes[i].y).toFixed(2), w: parseFloat(shapes[i].w).toFixed(2), h: parseFloat(shapes[i].h).toFixed(2), p: shapes[i].p, f: shapes[i].f, t: shapes[i].t, n: shapes[i].n, s: shapes[i].s, c: shapes[i].c, wt: shapes[i].wt, st: shapes[i].st, ratio: parseFloat(shapes[i].ratio).toFixed(2).replace('.',','), imfile: "", imName: shapes[i].imName, Itype: shapes[i].Itype, fieldType: shapes[i].fieldType };
         
         shapes2.push(tempShape);         
         

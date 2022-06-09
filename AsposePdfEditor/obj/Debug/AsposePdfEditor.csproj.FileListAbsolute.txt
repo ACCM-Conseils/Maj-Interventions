@@ -3,3 +3,10 @@ D:\Nausherwan Aslam\Samples\Aspose_PDF_Editor\AsposePdfEditor\bin\AsposePdfEdito
 D:\Nausherwan Aslam\Samples\Aspose_PDF_Editor\AsposePdfEditor\obj\Debug\AsposePdfEditor.csprojResolveAssemblyReference.cache
 D:\Nausherwan Aslam\Samples\Aspose_PDF_Editor\AsposePdfEditor\obj\Debug\AsposePdfEditor.dll
 D:\Nausherwan Aslam\Samples\Aspose_PDF_Editor\AsposePdfEditor\obj\Debug\AsposePdfEditor.pdb
+C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\obj\Debug\AsposePdfEditor.csproj.CoreCompileInputs.cache
+C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\AsposePdfEditor.dll.config
+C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\AsposePdfEditor.dll
+C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\AsposePdfEditor.pdb
+C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\obj\Debug\AsposePdfEditor.csproj.AssemblyReference.cache
+C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\obj\Debug\AsposePdfEditor.dll
+C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\obj\Debug\AsposePdfEditor.pdb

@@ -12,7 +12,7 @@
       #imageView { border: 1px solid #000; }
       #imageTemp { position: absolute; top: 1px; left: 1px; }
       .info {position: absolute;background-color: White;border-style:none; resize: none;  vertical-align:top; text-align:center;}
-      .tbox {position: absolute;background-color:white;border-style:none; resize: none; }
+      .tbox {position: absolute;background-color:white;border:1px solid orange; resize: none; }
       .Mine {position: absolute;background-color: white;border-style: none; resize:none;  vertical-align:top; text-align:center;}
       .modal-admin {
   width: 400px;

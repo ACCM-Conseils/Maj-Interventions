@@ -14,9 +14,8 @@ using System.Threading;
 using System.Drawing;
 using Aspose.Pdf.Text;
 using System.Net;
-using Aspose.Pdf.Text.TextOptions;
-using Aspose.Pdf.InteractiveFeatures.Forms;
 using System.Text.RegularExpressions;
+using Aspose.Pdf.Forms;
 
 namespace AsposePdfEditor
 {
@@ -26,13 +25,16 @@ namespace AsposePdfEditor
         protected void Page_Load(object sender, EventArgs e)
         {
 
-           
+            
         }
 
         public void ProcessRequest(HttpContext context)
         {
             try
             {
+                Aspose.Pdf.License license = new Aspose.Pdf.License();
+
+                license.SetLicense(@"C:\Users\conta\Source\Repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\Aspose.Total.lic");
 
                 if (context.Request.QueryString["Download"] != null)
                 {
@@ -528,11 +530,14 @@ namespace AsposePdfEditor
             // Get values from all fields
             foreach (Field formField in doc.Form.Fields)
             {
-                    
+                try
+                {
 
                     double lowerLeftY = (doc.Pages[pageCount].Rect.Height) - (formField.Rect.ToRect().Y + formField.Height);
+                    lowerLeftY += 12;
 
                     double lowerLeftX = formField.Rect.ToRect().X;
+                    lowerLeftX += 20;
                     var fieldType = formField.GetType().Name; //pdfForm.GetFieldType(formField.FullName);
                     var imValue = "";
 
@@ -547,8 +552,8 @@ namespace AsposePdfEditor
                         if (fieldType.ToString() == "CheckboxField")
                         {
                             CheckboxField field = (CheckboxField)formField;
-                            if (field.Parent != null) 
-                            imValue = field.Parent.FullName;
+                            if (field.Parent != null)
+                                imValue = field.Parent.FullName;
                             fieldType = "CheckBox";
                             if (field.Checked)
                             {
@@ -602,6 +607,9 @@ namespace AsposePdfEditor
                     {
                         break;
                     }
+                }
+                catch(Exception e)
+                { }
             }
 
             
@@ -939,7 +947,7 @@ namespace AsposePdfEditor
                 Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
                 //create TextAbsorber object to find all instances of the input search phrase
-                TextFragmentAbsorber textFragmentAbsorber = new TextFragmentAbsorber("(?i)" + txtFind, new Aspose.Pdf.Text.TextOptions.TextSearchOptions(true));
+                TextFragmentAbsorber textFragmentAbsorber = new TextFragmentAbsorber("(?i)" + txtFind, new Aspose.Pdf.Text.TextSearchOptions(true));
 
                 textFragmentAbsorber.TextReplaceOptions.ReplaceAdjustmentAction = TextReplaceOptions.ReplaceAdjustment.WholeWordsHyphenation;
 
