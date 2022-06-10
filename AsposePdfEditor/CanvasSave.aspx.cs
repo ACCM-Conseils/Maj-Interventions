@@ -24,8 +24,7 @@ namespace AsposePdfEditor
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            
+            ProcessRequest(HttpContext.Current);
         }
 
         public void ProcessRequest(HttpContext context)
@@ -46,15 +45,29 @@ namespace AsposePdfEditor
 
                 else
                 {
+                    /*byte[] fs = System.IO.File.ReadAllBytes(@"C:\Temp\formulaire SLS 2020.pdf");
+
+                    File.WriteAllBytes(Server.MapPath("Convert/input.pdf"), fs);
+                    File.WriteAllBytes(Server.MapPath("Convert/output.pdf"), fs);
+
+                    Startup();
+
+                    context.Response.Write(ImageConverter());*/
+
                     //Capture File From Post
                     HttpPostedFile file = context.Request.Files["fileToUpload"];
 
                     if (context.Request.Form["Opp"] == "uploading")
                     {
-                        //Or just save it locally
-                        file.SaveAs(Server.MapPath("Convert/input.pdf"));
+                        byte[] fs = System.IO.File.ReadAllBytes(@"C:\Temp\formulaire SLS 2020.pdf");
 
-                        file.SaveAs(Server.MapPath("Convert/output.pdf"));
+                        File.WriteAllBytes(Server.MapPath("Convert/input.pdf"), fs);
+                        File.WriteAllBytes(Server.MapPath("Convert/output.pdf"), fs);
+
+                        //Or just save it locally
+                        /*file.SaveAs(Server.MapPath("Convert/input.pdf"));
+
+                        file.SaveAs(Server.MapPath("Convert/output.pdf"));*/
 
                         Startup();
 
@@ -93,20 +106,30 @@ namespace AsposePdfEditor
             catch (IndexOutOfRangeException exception)
             {
 
-                if (exception.Message.Contains("evaluation"))
-                {
-                    context.Response.Write("Aspose.Pdf Evaluation version limitation. Only 4 elements of any collection are allowed. Please get a free temporary license to test the HTML5 PDF Editor without any limitations from http://www.aspose.com/corporate/purchase/temporary-license.aspx");
-                }
-                else
-                {
-                    context.Response.Write("An exception occurred during processing of your document. Please contact Aspose Support.");
-                }
 
             }
             catch (Exception exp)
             {
 
-                context.Response.Write("An exception occurred during processing of your document. Please contact Aspose Support.");
+                
+            }
+        }
+
+        [WebMethod()]
+        public string Download_From_Disk()
+        {
+            try
+            {
+                byte[] fs = System.IO.File.ReadAllBytes(@"C:\Temp\formulaire SLS 2020.pdf");
+
+                File.WriteAllBytes(Server.MapPath("Convert/input.pdf"), fs);
+                File.WriteAllBytes(Server.MapPath("Convert/output.pdf"), fs);
+
+                return ImageConverter();
+            }
+            catch (Exception Exp)
+            {
+                return Exp.Message;
             }
         }
 

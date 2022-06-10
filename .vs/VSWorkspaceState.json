@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AsposePdfEditor"
   ],
-  "SelectedNode": "\\AsposePdfEditor.sln",
+  "SelectedNode": "\\AsposePdfEditor\\CanvasSave.aspx.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
-    <title>HTML5 PDF Editor by Aspose for .NET</title>
+    <title>Habitat du Nord</title>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="head" runat="server"> </asp:ContentPlaceHolder>
     <script src="Scripts/jquery-2.0.3.min.js"></script>

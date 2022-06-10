@@ -121,7 +121,7 @@
 
 
 <nav class="navbar navbar-inverse" role="navigation">  
-  <h3 style="color:White; text-align:center">HTML5 PDF Editor by Aspose for .NET</h3>
+  <h3 style="color:White; text-align:center">Habitat du Nord</h3>
 </nav>
 <div class="well well-sm">
 
@@ -138,27 +138,10 @@
   </ul>   
 </div>
 
-    <button onclick="javascript:generalSetup('Add');AddPage();$('#divDel').css('visibility', 'hidden');return false;" class="btn btn-default btn-lg" id="btnAddPage" data-toggle="tooltip" data-placement="top" title="Add Page" disabled=disabled>
-    <span class="glyphicon glyphicon-plus"></span>
-    </button>
-     <button onclick="javascript:generalSetup('Delete');DeletePage();$('#divDel').css('visibility', 'hidden');return false;" class="btn btn-default btn-lg" id="btnDeletePage" data-toggle="tooltip" data-placement="top" title="Delete Page" disabled=disabled>
-    <span class="glyphicon glyphicon-minus"></span>
-    </button>
-    <button class="open-moveModal btn btn-default btn-lg" data-toggle="modal" onclick="generalSetup('Move');" data-target="#moveModal" data-toggle="tooltip" id="btnMoving" data-id="moving" data-placement="top" title="Move Page" disabled=disabled>    
-    <span class="glyphicon glyphicon-transfer"></span> 
-    </button>
-
-     <button class="open-myModal btn btn-default btn-lg" data-toggle="modal" data-target="#myModal" onclick="generalSetup('Append');" data-id="appending" id="btnAppending" data-placement="top" title="Append File" disabled=disabled>
-     <span class="glyphicon glyphicon-plus-sign"></span>    
-    </button>
-
     <button onclick="javascript:generalSetup('Save');UploadPic();return false;" class="btn btn-default btn-lg" id="btnSave" data-toggle="tooltip"  data-placement="top" title="Save Pdf File" disabled=disabled>
     <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>
     <div class="btn-group">
-  <button type="button" class="btn btn-default btn-lg" data-placement="top" title="Export File" data-toggle="dropdown" onclick="generalSetup('Export');" id="btnExporting" aria-expanded="false" disabled=disabled>
-    <span class=" glyphicon glyphicon-export"></span>
-  </button>
   <ul class="dropdown-menu" role="menu">
     <li><a onclick="javascript:SaveText('pdf');return false;"> As PDF File</a></li>
     <li><a onclick="javascript:SaveText('docx');return false;"> As Word File </a></li>  
@@ -173,22 +156,10 @@
     <button onclick="javascript:generalSetup('Previous');Previous();$('#divDel').css('visibility', 'hidden');return false;" class="btn btn-default btn-lg" data-toggle="tooltip" id="btnPrevious" data-placement="top" title="Previous Page" disabled=disabled>
     <span class="glyphicon glyphicon-circle-arrow-left"></span> 
     </button>
-     <button  class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" id="lblPages">Page 0 Of 0</button>
+     <button  class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" id="lblPages">Page 0 sur 0</button>
     <button onclick="javascript:generalSetup('Next');Next();$('#divDel').css('visibility', 'hidden');return false;" class="btn btn-default btn-lg" id="btnNext" data-toggle="tooltip" data-placement="top" title="Next Page" disabled=disabled>
      <span class="glyphicon glyphicon-circle-arrow-right"></span>    
     </button>
-
-
-    <div class="btn-group">
-  <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="generalSetup('Search');" id="btnSearching" disabled=disabled>
-    <span class=" glyphicon glyphicon-search"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a class="open-moveModal" data-toggle="modal" data-target="#moveModal" data-id="searching" data-placement="top" title="Search Text"> Search Text</a></li>
-    <li><a class="open-replaceModal" data-toggle="modal" data-target="#replaceModal" data-id="replacing" data-placement="top" title="Replace Text"> Replace Text</a></li>
-    <li><a onclick="javascript:ClearSearchClicked()"> Clear Search</a></li>    
-  </ul>
-</div>
     <div class="btn-group">
   <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="generalSetup('Image');" id="btnImage" disabled=disabled>
     <span class="glyphicon glyphicon-picture"></span>
@@ -202,32 +173,6 @@
     <div class="btn-group">
     <button id="btnRect" value="rect"  class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" title="Highlight Mode" onclick="generalSetup('Rect');" disabled=disabled>
      <span class="glyphicon glyphicon-header"></span>  
-    </button>
-
-     <button id="btnRead" value="reading"  class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" title="Read Mode" onclick="generalSetup('Read');" disabled=disabled>
-     <span class="glyphicon glyphicon-hand-up"></span>  
-    </button>
-
-     <button id="btnDrag" value="dragging"  class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" title="Drag Mode" onclick="generalSetup('Drag');" disabled=disabled>
-     <span class="glyphicon glyphicon-move"></span>  
-    </button>
-
-     <button id="btnTexting" value="texting"  class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" title="Text Mode" onclick="generalSetup('Text');" disabled=disabled> 
-     <span class="glyphicon glyphicon-text-height"></span>  
-    </button>
-    </div>
-      <div class="btn-group">
-     <button id="btnAttachments" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false"  title="Attachments" disabled=disabled> 
-     <span class="glyphicon glyphicon-paperclip"></span>  
-    </button>
-    <ul class="dropdown-menu">  
-  <li><a class="open-myModal" data-toggle="modal" data-target="#myModal" data-id="addAttachment" data-toggle="modal" data-placement="top" title="Add Attachment" >Add Attachment</a></li>
-  <li><a data-id="attachment" data-toggle="modal" data-target="#divAttach" data-placement="top" title="View Attachments" onclick="generalSetup('Attach');">View Attachments</a></li>
-  </ul>   
-    
-
-    <button id="btnSignature" value="signature"  class="btn btn-default btn-lg" data-toggle="tooltip"  data-placement="top" title="Signature" onclick="generalSetup('signature');" disabled=disabled> 
-     <span class="glyphicon glyphicon-pencil"></span>  
     </button>
 
     </div>

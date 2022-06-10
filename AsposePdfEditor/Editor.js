@@ -113,10 +113,6 @@ if (window.addEventListener) {
                 return;
             }
             tool_select.addEventListener('click', ev_tool_change);
-            tool_select2.addEventListener('click', ev_tool_change2);
-            tool_select3.addEventListener('click', ev_tool_change3);
-            tool_select4.addEventListener('click', ev_tool_change4);
-            tool_select5.addEventListener('click', ev_tool_change5);
 
             // Activate the default tool.
             if (tools[tool_default]) {
@@ -128,6 +124,8 @@ if (window.addEventListener) {
             canvas.addEventListener('mousedown', ev_canvas, false);
             canvas.addEventListener('mousemove', ev_canvas, false);
             canvas.addEventListener('mouseup', ev_canvas, false);
+
+            fileSelected();
         }
 
         // The general-purpose event handler. This function just determines the mouse 
@@ -1282,10 +1280,16 @@ $(document).on("click", ".open-moveModal", function () {
 
 function fileSelected() {
 
+    var urlParams = new URLSearchParams(location.search);
+
+    var id = urlParams.get('id');
+
+    alert(urlParams);
 
     var fd = new FormData();
-    fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
-    fd.append("Opp", $("#hdnOpp").val());
+    fd.append("fileToUpload", id);
+    //fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
+    fd.append("Opp", "uploading");
 
 
     if ($("#hdnOpp").val() == "appending") {
@@ -1296,7 +1300,56 @@ function fileSelected() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "CanvasSave.aspx");
     xhr.onload = function () {
-       // progress.value = progress.innerHTML = 100 + '%';
+        $.ajax({
+            type: 'POST',
+            url: 'CanvasSave.aspx/Download_From_Disk',
+            data: {},
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                if (from == 'upload') {
+                    dataLoad = data.d;
+                    First();
+
+                }
+                else {
+
+                    InsertImages(data.d, 50, 50);
+                }
+                $('#loadingModal').modal('hide');
+            },
+            //call on ajax call failure
+            error: function (xhr, textStatus, error) {
+                $('#loadingModal').modal('hide');
+                //called on ajax call success
+                alert("Error: " + xhr.responseJSON.Message);
+
+            }
+
+        });
+        for (i = 0; i < shapes.length; i++) {
+
+            var shapeDiv = document.getElementById("div_" + shapes[i].imName + "");
+
+            var shape = document.getElementById(shapes[i].imName);
+            if (shape != null) {
+
+                $('#' + shapes[i].imName + '').remove();
+            }
+
+            if (shapeDiv != null) {
+
+                shapeDiv.parentNode.removeChild(shapeDiv);
+            }
+
+        }
+
+        shapes2.length = 0;
+        shapes.length = 0;
+        Attachments.length = 0;
+        CheckLicense();
+        GetAttachments();
+        First();
     };
 
     xhr.upload.onprogress = function (event) {
@@ -1313,6 +1366,8 @@ function fileSelected() {
         if (xhr.readyState == 4) {
             data = (xhr.responseText);
             dataLoad = data;
+
+            $("#hdnOpp").val("uploading");
 
             if (data.indexOf("Evaluation") == -1) {
 
@@ -2166,22 +2221,9 @@ function closeSignature() {
 
 function onStartup() {
 
-    document.getElementById("btnAddPage").disabled = false;
-    document.getElementById("btnDeletePage").disabled = false;
-    document.getElementById("btnMoving").disabled = false;
-    document.getElementById("btnAppending").disabled = false;
     document.getElementById("btnSave").disabled = false;
-    document.getElementById("btnExporting").disabled = false;
     document.getElementById("btnPrevious").disabled = false;
     document.getElementById("btnNext").disabled = false;
-    document.getElementById("btnSearching").disabled = false;
-    document.getElementById("btnImage").disabled = false;
-    document.getElementById("btnRect").disabled = false;
-    document.getElementById("btnRead").disabled = false;
-    document.getElementById("btnDrag").disabled = false;
-    document.getElementById("btnTexting").disabled = false;
-    document.getElementById("btnAttachments").disabled = false;
-    document.getElementById("btnSignature").disabled = false;
 
 }
 
