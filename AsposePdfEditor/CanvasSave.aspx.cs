@@ -16,6 +16,7 @@ using Aspose.Pdf.Text;
 using System.Net;
 using System.Text.RegularExpressions;
 using Aspose.Pdf.Forms;
+using DocuWare.Platform.ServerClient;
 
 namespace AsposePdfEditor
 {
@@ -27,7 +28,7 @@ namespace AsposePdfEditor
             ProcessRequest(HttpContext.Current);
         }
 
-        public void ProcessRequest(HttpContext context)
+        public override void ProcessRequest(HttpContext context)
         {
             try
             {
@@ -55,51 +56,112 @@ namespace AsposePdfEditor
                     context.Response.Write(ImageConverter());*/
 
                     //Capture File From Post
-                    HttpPostedFile file = context.Request.Files["fileToUpload"];
 
-                    if (context.Request.Form["Opp"] == "uploading")
-                    {
-                        byte[] fs = System.IO.File.ReadAllBytes(@"C:\Temp\formulaire SLS 2020.pdf");
+                    var idDoc = context.Request.Form["fileToUpload"];
 
-                        File.WriteAllBytes(Server.MapPath("Convert/input.pdf"), fs);
-                        File.WriteAllBytes(Server.MapPath("Convert/output.pdf"), fs);
+                    //HttpPostedFile file = context.Request.Files["fileToUpload"];
 
-                        //Or just save it locally
-                        /*file.SaveAs(Server.MapPath("Convert/input.pdf"));
+                    if(!String.IsNullOrEmpty(idDoc))
+                    { 
+                    ServiceConnection conn = DocuwareProvider.Connect("https://docuwaredevext.altexence.net:444/Docuware/", "Admin", "AdminSFA");
 
-                        file.SaveAs(Server.MapPath("Convert/output.pdf"));*/
+                        if (conn != null)
+                        {
+                            Organization org = DocuwareProvider.GetOrganization(conn);
 
-                        Startup();
+                            ////////Obtaining the organization's cabinets
+                            var fileCabinets = org.GetFileCabinetsFromFilecabinetsRelation().FileCabinet;
 
-                        context.Response.Write(ImageConverter());
-                    }
-                    else if (context.Request.Form["Opp"] == "appending")
-                    {
-                        string appPages = context.Request.Form["pages"];
-                        string appRatios = context.Request.Form["ratios"];
-                        string appHeights = context.Request.Form["heights"];
+                            if (fileCabinets.Count() > 0)
+                            {
+                                FileCabinet defaultFilecabinet = fileCabinets.Where(f => !f.IsBasket && f.Id == "c78f7dee-bd7c-4cbf-81e6-ab14c01d3b79").First();
 
-                        //Or just save it locally
-                        file.SaveAs(Server.MapPath("Convert/append.pdf"));
+                                var dialogInfoItems = defaultFilecabinet.GetDialogInfosFromSearchesRelation();
 
-                        context.Response.Write(AppendConverter(appPages, appRatios, appHeights));
-                    }
-                    else if (context.Request.Form["Opp"] == "addAttachment")
-                    {
+                                var dialog = dialogInfoItems.Dialog.First(m => m.Id == "ba3f9203-5e55-40b1-a729-ca16b4aa0982").GetDialogFromSelfRelation();
 
-                        //Or just save it locally
-                        file.SaveAs(Server.MapPath("Attachments/" + file.FileName));
-                        AddAttachments(Server.MapPath("Attachments/" + file.FileName), file.FileName);                      
-                        
-                        context.Response.Write(file.FileName);
-                    }
-                    else
-                    {
+                                if (dialog != null)
+                                {
+                                    ////////Searchfor the document through its internal ID
+                                    var qSearch = new DialogExpression()
+                                    {
+                                        Condition = new List<DialogExpressionCondition>()
+                                            {
+                                                DialogExpressionCondition.Create("DWDOCID", idDoc )
+                                            },
+                                        Count = 1
+                                    };
 
-                        //Or just save it locally
-                        file.SaveAs(Server.MapPath("Images/" + file.FileName));
+                                    var queryResult = dialog.Query.PostToDialogExpressionRelationForDocumentsQueryResult(qSearch);
 
-                        context.Response.Write(file.FileName);
+                                    if (queryResult.Items.Count > 0)
+                                    {
+                                        DocuWare.Platform.ServerClient.Document doc = queryResult.Items.First().GetDocumentFromSelfRelation();
+
+                                        var downloadedFile = DocuwareProvider.DownloadDocumentContent(doc);
+
+                                        if (context.Request.Form["Opp"] == "uploading")
+                                        {
+                                            if (downloadedFile != null)
+                                            {
+                                                String pathToFile = Server.MapPath("Convert/input.pdf");
+
+                                                using (var file = System.IO.File.Create(pathToFile))
+                                                using (var stream = downloadedFile.Stream)
+                                                    stream.CopyTo(file);
+                                            }
+                                            var downloadedFile2 = DocuwareProvider.DownloadDocumentContent(doc);
+
+                                            if (downloadedFile2 != null)
+                                            {
+                                                String pathToFile2 = Server.MapPath("Convert/output.pdf");
+
+                                                using (var file2 = System.IO.File.Create(pathToFile2))
+                                                using (var stream = downloadedFile2.Stream)
+                                                    stream.CopyTo(file2);
+                                            }
+
+                                            //Or just save it locally
+                                            /*file.SaveAs(Server.MapPath("Convert/input.pdf"));
+
+                                            file.SaveAs(Server.MapPath("Convert/output.pdf"));*/
+
+                                            Startup();
+
+                                            context.Response.Write(ImageConverter());
+                                        }
+                                        /*else if (context.Request.Form["Opp"] == "appending")
+                                        {
+                                            string appPages = context.Request.Form["pages"];
+                                            string appRatios = context.Request.Form["ratios"];
+                                            string appHeights = context.Request.Form["heights"];
+
+                                            //Or just save it locally
+                                            file.SaveAs(Server.MapPath("Convert/append.pdf"));
+
+                                            context.Response.Write(AppendConverter(appPages, appRatios, appHeights));
+                                        }
+                                        else if (context.Request.Form["Opp"] == "addAttachment")
+                                        {
+
+                                            //Or just save it locally
+                                            file.SaveAs(Server.MapPath("Attachments/" + file.FileName));
+                                            AddAttachments(Server.MapPath("Attachments/" + file.FileName), file.FileName);                      
+
+                                            context.Response.Write(file.FileName);
+                                        }
+                                        else
+                                        {
+
+                                            //Or just save it locally
+                                            file.SaveAs(Server.MapPath("Images/" + file.FileName));
+
+                                            context.Response.Write(file.FileName);
+                                        }*/
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -175,7 +237,7 @@ namespace AsposePdfEditor
         {
             try
             {
-                Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
                 //insert an empty page at the end of a PDF file
                 doc.Pages.Add();
@@ -233,7 +295,7 @@ namespace AsposePdfEditor
         {
             try
             {
-                Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
                 doc.Pages.Delete(Convert.ToInt32(imageData));
 
@@ -257,7 +319,7 @@ namespace AsposePdfEditor
                 int pageTo = Convert.ToInt32(moveTo);
                 List<string> str = pageList.ToList();
 
-                Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
                 Aspose.Pdf.Page page = doc.Pages[pageFrom];
 
@@ -297,8 +359,8 @@ namespace AsposePdfEditor
         [WebMethod()]
         public static void UploadPic(List<shap> shapes , string filename, string aspectRatio)
         {
-          
-                Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
                 //Create image stamp
                 ImageStamp imageStamp = new ImageStamp(HttpContext.Current.Server.MapPath("test.png"));
@@ -343,40 +405,40 @@ namespace AsposePdfEditor
                     else if(shapes[i].Itype == "text")
                     {
 
-                        /*
-                        // create TextBuilder for first page
-                        TextBuilder tb = new TextBuilder(doc.Pages[shapes[i].p]);
+                    /*
+                    // create TextBuilder for first page
+                    TextBuilder tb = new TextBuilder(doc.Pages[shapes[i].p]);
 
-                        // TextFragment with sample text
-                        TextFragment fragment = new TextFragment(shapes[i].t);
+                    // TextFragment with sample text
+                    TextFragment fragment = new TextFragment(shapes[i].t);
 
-                        // set the font for TextFragment
-                        fragment.TextState.Font = FontRepository.FindFont(shapes[i].n);
-                        fragment.TextState.FontSize = Convert.ToInt32(shapes[i].s);
-                        if (shapes[i].wt == "bold")
-                        {
-                            fragment.TextState.FontStyle = FontStyles.Bold;
-                        }
+                    // set the font for TextFragment
+                    fragment.TextState.Font = FontRepository.FindFont(shapes[i].n);
+                    fragment.TextState.FontSize = Convert.ToInt32(shapes[i].s);
+                    if (shapes[i].wt == "bold")
+                    {
+                        fragment.TextState.FontStyle = FontStyles.Bold;
+                    }
 
-                        if (shapes[i].st == "italic")
-                        {
-                            fragment.TextState.FontStyle = FontStyles.Italic;
-                        }
+                    if (shapes[i].st == "italic")
+                    {
+                        fragment.TextState.FontStyle = FontStyles.Italic;
+                    }
 
-                        // set the formatting of text as Underline
-                        // fragment.TextState.Underline = true;
-                        fragment.TextState.ForegroundColor = GetColor(shapes[i].c);
-                        // specify the position where TextFragment needs to be placed
-                        fragment.Position = new Position((float)(shapeX), (float)(yaxis));
+                    // set the formatting of text as Underline
+                    // fragment.TextState.Underline = true;
+                    fragment.TextState.ForegroundColor = GetColor(shapes[i].c);
+                    // specify the position where TextFragment needs to be placed
+                    fragment.Position = new Position((float)(shapeX), (float)(yaxis));
 
-                       // fragment.Rectangle.Rotate((360 - (Convert.ToDouble(shapes[i].fieldType)) * 180 / Math.PI);
+                   // fragment.Rectangle.Rotate((360 - (Convert.ToDouble(shapes[i].fieldType)) * 180 / Math.PI);
 
-                        // append TextFragment to PDF file
-                        tb.AppendText(fragment);
-                        */
-                        
-                        //create text stamp
-                        TextStamp textStamp = new TextStamp(shapes[i].t);
+                    // append TextFragment to PDF file
+                    tb.AppendText(fragment);
+                    */
+
+                    //create text stamp
+                    Aspose.Pdf.TextStamp textStamp = new Aspose.Pdf.TextStamp(shapes[i].t);
                         //set whether stamp is background
                        // textStamp.Background = true;
                         //set origin
@@ -470,7 +532,7 @@ namespace AsposePdfEditor
         {
             Startup();
 
-            Document doc = new Document();
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document();
             doc.Pages.Add();
             doc.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
@@ -480,8 +542,8 @@ namespace AsposePdfEditor
         [WebMethod]
         public static string ImageConverter()
         {
-                          
-                Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
                 
                 
                 string Aratio = "";
@@ -541,7 +603,7 @@ namespace AsposePdfEditor
            
         }
 
-        private static string CheckFields(Document doc, int pageCount, string filename, string fields, double ratio, bool licensed)
+        private static string CheckFields(Aspose.Pdf.Document doc, int pageCount, string filename, string fields, double ratio, bool licensed)
         {
             double marginLeft = doc.Pages[pageCount].PageInfo.Margin.Left;
             double marginTop = doc.Pages[pageCount].PageInfo.Margin.Top;
@@ -644,12 +706,12 @@ namespace AsposePdfEditor
         [WebMethod]
         public static string AppendConverter(string appPages, string appRatios, string appHeights)
         {
-           
-                Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
                 int totalCount = doc.Pages.Count;
 
-                //open second document
-                Document pdfDocument2 = new Document(HttpContext.Current.Server.MapPath("Convert/append.pdf"));
+            //open second document
+            Aspose.Pdf.Document pdfDocument2 = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/append.pdf"));
 
                 //add pages of second document to the first
                 doc.Pages.Add(pdfDocument2.Pages);
@@ -704,7 +766,7 @@ namespace AsposePdfEditor
         [WebMethod]
         public static string btnTextExport_Click(string fileType)
         {
-          Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/Export.pdf"));
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/Export.pdf"));
 
                 switch (fileType)
                 {
@@ -774,7 +836,7 @@ namespace AsposePdfEditor
 
             System.IO.Directory.CreateDirectory(HttpContext.Current.Server.MapPath("search/" + name));
 
-            Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
                 
 
@@ -848,7 +910,7 @@ namespace AsposePdfEditor
         public static string AddAttachments(string path, string filename)
         {
             // Open document
-            using (Document pdfDocument = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf")))
+            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf")))
             {
                 // Setup new file to be added as attachment
                 FileSpecification fileSpecification = new FileSpecification(path, filename);
@@ -866,7 +928,7 @@ namespace AsposePdfEditor
             string outAttach = "";
 
             // Open document
-            using (Document pdfDocument = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf")))
+            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf")))
             {
 
                 // Get embedded files collection
@@ -900,7 +962,7 @@ namespace AsposePdfEditor
         {
 
             // Open document
-            using (Document pdfDocument = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf")))
+            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf")))
             {
 
                 // Delete all attachments
@@ -917,7 +979,7 @@ namespace AsposePdfEditor
         public static bool CheckLicense()
         {
 
-            Document pdfDocument = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+            Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
             // Create TextAbsorber object to extract text
             TextAbsorber textAbsorber = new TextAbsorber();
@@ -967,7 +1029,7 @@ namespace AsposePdfEditor
         {
             try
             {
-                Document doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
                 //create TextAbsorber object to find all instances of the input search phrase
                 TextFragmentAbsorber textFragmentAbsorber = new TextFragmentAbsorber("(?i)" + txtFind, new Aspose.Pdf.Text.TextSearchOptions(true));
@@ -989,7 +1051,7 @@ namespace AsposePdfEditor
 
                 doc.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
-                doc = new Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
 
                 System.IO.DirectoryInfo downloadedMessageInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath("Input/"));
 
