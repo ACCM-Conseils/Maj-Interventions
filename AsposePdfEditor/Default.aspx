@@ -151,9 +151,9 @@
     </button>
       
     <div class="btn-group">
-    <button id="btnRect" value="rect"  class="btn btn-default btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Highlight Mode" onclick="generalSetup('Rect');">
-     <span class="glyphicon glyphicon-book"></span>&nbsp Voir la notice d 'utilisation
-    </button>
+    <a id="btnRect" class="btn btn-default btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Highlight Mode" href="https://docuwaredevext.altexence.net:444/HDN/Notice/Notice.pdf" target="_blank">
+     <span class="glyphicon glyphicon-book"></span>&nbsp Télécharger la notice d 'utilisation
+    </a>
 
     </div>
 </div>
