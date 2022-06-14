@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\conta\Source\Repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\app.publish\</_PublishTargetUrl>
+    <History>True|2022-06-14T10:24:31.7267504Z;True|2022-06-14T12:21:12.7253225+02:00;True|2022-06-14T11:46:30.0250080+02:00;True|2022-06-14T10:03:39.9022440+02:00;True|2022-06-14T09:59:22.7909668+02:00;True|2022-06-14T09:46:58.9538386+02:00;True|2022-06-14T09:46:55.4301208+02:00;True|2022-06-14T09:32:37.6326586+02:00;True|2022-06-14T09:23:44.9283381+02:00;True|2022-06-14T09:12:24.5835861+02:00;True|2022-06-13T16:33:49.8042991+02:00;True|2022-06-13T16:30:58.4628628+02:00;True|2022-06-13T16:27:37.5130181+02:00;True|2022-06-13T16:25:40.1888565+02:00;True|2022-06-13T16:22:42.1689372+02:00;True|2022-06-13T16:19:46.0469917+02:00;True|2022-06-13T16:13:27.0413536+02:00;False|2022-06-13T16:12:10.7736088+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="AsposePdfEditor.Master">
+      <publishTime>06/13/2022 15:30:43</publishTime>
+    </File>
+    <File Include="bin/Aspose.Pdf.dll">
+      <publishTime>04/10/2018 23:54:38</publishTime>
+    </File>
+    <File Include="bin/AsposePdfEditor.dll">
+      <publishTime>06/14/2022 12:24:31</publishTime>
+    </File>
+    <File Include="bin/AsposePdfEditor.pdb">
+      <publishTime>06/14/2022 12:24:31</publishTime>
+    </File>
+    <File Include="bin/de/DocuWare.Platform.ServerClient.resources.dll">
+      <publishTime>08/04/2021 11:25:06</publishTime>
+    </File>
+    <File Include="bin/DocuWare.Platform.ServerClient.dll">
+      <publishTime>08/04/2021 11:25:06</publishTime>
+    </File>
+    <File Include="bin/DocuWare.Platform.ServerClient.Extensions.dll">
+      <publishTime>08/04/2021 11:25:08</publishTime>
+    </File>
+    <File Include="bin/DocuWare.RestClient.dll">
+      <publishTime>08/04/2021 07:51:12</publishTime>
+    </File>
+    <File Include="bin/DocuWare.UriTemplates.dll">
+      <publishTime>08/04/2021 07:51:12</publishTime>
+    </File>
+    <File Include="bin/fo/DocuWare.Platform.ServerClient.resources.dll">
+      <publishTime>08/04/2021 11:25:06</publishTime>
+    </File>
+    <File Include="bootstrap/css/bootstrap.css">
+      <publishTime>06/09/2022 10:56:53</publishTime>
+    </File>
+    <File Include="bootstrap/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>06/09/2022 10:56:53</publishTime>
+    </File>
+    <File Include="bootstrap/js/bootstrap.js">
+      <publishTime>06/09/2022 10:56:53</publishTime>
+    </File>
+    <File Include="CanvasSave.aspx">
+      <publishTime>06/09/2022 10:56:53</publishTime>
+    </File>
+    <File Include="Default.aspx">
+      <publishTime>06/14/2022 10:30:42</publishTime>
+    </File>
+    <File Include="Editor.js">
+      <publishTime>06/14/2022 12:24:26</publishTime>
+    </File>
+    <File Include="framely.gif">
+      <publishTime>06/09/2022 10:56:53</publishTime>
+    </File>
+    <File Include="Scripts/jquery-2.0.3.min.js">
+      <publishTime>06/09/2022 10:56:53</publishTime>
+    </File>
+    <File Include="Test.png">
+      <publishTime>06/09/2022 10:56:53</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>06/14/2022 09:37:44</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

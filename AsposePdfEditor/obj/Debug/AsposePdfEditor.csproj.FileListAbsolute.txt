@@ -7,7 +7,6 @@ C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEdit
 C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\AsposePdfEditor.dll.config
 C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\AsposePdfEditor.dll
 C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\AsposePdfEditor.pdb
-C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\obj\Debug\AsposePdfEditor.csproj.AssemblyReference.cache
 C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\obj\Debug\AsposePdfEditor.dll
 C:\Users\conta\source\repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\obj\Debug\AsposePdfEditor.pdb
 C:\Users\conta\Source\Repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\DocuWare.Platform.ServerClient.dll
@@ -17,3 +16,4 @@ C:\Users\conta\Source\Repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEdit
 C:\Users\conta\Source\Repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\de\DocuWare.Platform.ServerClient.resources.dll
 C:\Users\conta\Source\Repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\fo\DocuWare.Platform.ServerClient.resources.dll
 C:\Users\conta\Source\Repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\obj\Debug\AsposePdfEditor.csproj.CopyComplete
+C:\Users\conta\Source\Repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\obj\Debug\AsposePdfEditor.csproj.AssemblyReference.cache

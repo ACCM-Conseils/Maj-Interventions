@@ -829,8 +829,10 @@ function Previous() {
             manageFields();
         });
     }
+
+    document.getElementById("btnSave").disabled = true;
     
-    document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  Of ' + Npages.length; ;
+    document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  sur ' + Npages.length; ;
 
     
 }
@@ -854,7 +856,7 @@ function sendAdd() {
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {
             Npages.push(data.d);
-            document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  Of ' + Npages.length;
+            document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  sur ' + Npages.length;
             $('#loadingModal').modal('hide');
         },
         //call on ajax call failure
@@ -915,7 +917,7 @@ function updateIndexesDelete() {
         }
 
    DrawPic(Npages[currentPage - 1]);
-   document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  Of ' + Npages.length;
+   document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  sur ' + Npages.length;
 }
 
 function DeleteShapes() {
@@ -959,7 +961,10 @@ function Next() {
         
     }
 
-    document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  Of ' + Npages.length; ;
+    if (currentPage == Npages.length)
+        document.getElementById("btnSave").disabled = false;
+
+    document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  sur ' + Npages.length; ;
 }
 
 function wait(ms) {
@@ -1109,7 +1114,7 @@ function First() {
     }
 
     DrawPic(Npages[currentPage - 1]);
-    document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  Of ' + Npages.length; ;
+    document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  sur ' + Npages.length; ;
     DrawShapes();
 
     manageFields();
@@ -1133,7 +1138,7 @@ function MoveUpdate() {
 
     DrawShapes();
 
-    document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  Of ' + Npages.length;
+    document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  sur ' + Npages.length;
 
    // $('#inputModal').modal('hide');
 }
@@ -1151,7 +1156,6 @@ function sendFile() {
 
 
     shapes2 = [];
-    alert("Start");
 
     for (var i = 0; i < shapes.length; i++) {
 
@@ -1170,7 +1174,7 @@ function sendFile() {
         data: wholedata,
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        success: function (data, textStatus, jqXHR) { $('#loadingModal').modal('hide'); alert('File Saved'); },
+        success: function (data, textStatus, jqXHR) { $('#loadingModal').modal('hide'); alert('Enregistrement terminé.'); },
         //call on ajax call failure
         error: function (xhr, textStatus, error) {
 
@@ -1282,152 +1286,149 @@ function fileSelected() {
 
     var urlParams = new URLSearchParams(location.search);
 
-    var id = urlParams.get('id');
+    var id = urlParams.get('guid');
 
-    alert(urlParams);
+    if (id.length > 0) {
+        var fd = new FormData();
+        fd.append("fileToUpload", id);
+        //fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
+        fd.append("Opp", "uploading");
 
-    var fd = new FormData();
-    fd.append("fileToUpload", id);
-    //fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
-    fd.append("Opp", "uploading");
 
+        if ($("#hdnOpp").val() == "appending") {
+            fd.append("pages", Npages);
+            fd.append("ratios", aRatio);
+            fd.append("heights", heights);
+        }
+        $('#loadingModal').modal('show');
 
-    if ($("#hdnOpp").val() == "appending") {
-        fd.append("pages", Npages);
-        fd.append("ratios", aRatio);
-        fd.append("heights", heights);
-    }
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "CanvasSave.aspx");
-    xhr.onload = function () {
-        $.ajax({
-            type: 'POST',
-            url: 'CanvasSave.aspx/Download_From_Disk',
-            data: {},
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data, textStatus, jqXHR) {
-                if (from == 'upload') {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "CanvasSave.aspx");
+        xhr.onload = function () {
+            $.ajax({
+                type: 'POST',
+                url: 'CanvasSave.aspx/Download_From_Disk',
+                data: {},
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
                     dataLoad = data.d;
-                    First();
-
-                }
-                else {
-
-                    InsertImages(data.d, 50, 50);
-                }
-                $('#loadingModal').modal('hide');
-            },
-            //call on ajax call failure
-            error: function (xhr, textStatus, error) {
-                $('#loadingModal').modal('hide');
-                //called on ajax call success
-                alert("Error: " + xhr.responseJSON.Message);
-
-            }
-
-        });
-        for (i = 0; i < shapes.length; i++) {
-
-            var shapeDiv = document.getElementById("div_" + shapes[i].imName + "");
-
-            var shape = document.getElementById(shapes[i].imName);
-            if (shape != null) {
-
-                $('#' + shapes[i].imName + '').remove();
-            }
-
-            if (shapeDiv != null) {
-
-                shapeDiv.parentNode.removeChild(shapeDiv);
-            }
-
-        }
-
-        shapes2.length = 0;
-        shapes.length = 0;
-        Attachments.length = 0;
-        CheckLicense();
-        GetAttachments();
-        First();
-    };
-
-    xhr.upload.onprogress = function (event) {
-        if (event.lengthComputable) {
-            var complete = (event.loaded / event.total * 99 | 0);
-            $(".progress-bar").width('60%');
-        }
-    }
-
-
-
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            data = (xhr.responseText);
-            dataLoad = data;
-
-            $("#hdnOpp").val("uploading");
-
-            if (data.indexOf("Evaluation") == -1) {
-
-                if ($("#hdnOpp").val() == "appending") {
-                    First();
-                }
-                else if ($("#hdnOpp").val() == "uploading") {
-
-                    for (i = 0; i < shapes.length; i++) {
-
-                        var shapeDiv = document.getElementById("div_" + shapes[i].imName + "");
-
-                        var shape = document.getElementById(shapes[i].imName);
-                        if (shape != null) {
-
-                            $('#' + shapes[i].imName + '').remove();
-                        }
-
-                        if (shapeDiv != null) {
-
-                            shapeDiv.parentNode.removeChild(shapeDiv);
-                        }
-
-                    }
-
-                    shapes2.length = 0;
-                    shapes.length = 0;
-                    Attachments.length = 0;
                     CheckLicense();
                     GetAttachments();
                     First();
-
+                    $('#loadingModal').modal('hide');
+                },
+                //call on ajax call failure
+                error: function (xhr, textStatus, error) {
+                    $('#loadingModal').modal('hide');
+                    //called on ajax call success
+                    alert("Error: " + xhr.responseJSON.Message);
 
                 }
-                else if ($("#hdnOpp").val() == "addAttachment") {
-                    GetAttachments();
+
+            });
+            for (i = 0; i < shapes.length; i++) {
+
+                var shapeDiv = document.getElementById("div_" + shapes[i].imName + "");
+
+                var shape = document.getElementById(shapes[i].imName);
+                if (shape != null) {
+
+                    $('#' + shapes[i].imName + '').remove();
+                }
+
+                if (shapeDiv != null) {
+
+                    shapeDiv.parentNode.removeChild(shapeDiv);
+                }
+
+            }
+
+            shapes2.length = 0;
+            shapes.length = 0;
+            Attachments.length = 0;
+
+        };
+
+        xhr.upload.onprogress = function (event) {
+            if (event.lengthComputable) {
+                var complete = (event.loaded / event.total * 99 | 0);
+                $(".progress-bar").width('60%');
+            }
+        }
+
+
+
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                data = (xhr.responseText);
+                dataLoad = data;
+
+                $("#hdnOpp").val("uploading");
+
+                if (data.indexOf("Evaluation") == -1) {
+
+                    if ($("#hdnOpp").val() == "appending") {
+                        First();
+                    }
+                    else if ($("#hdnOpp").val() == "uploading") {
+
+                        for (i = 0; i < shapes.length; i++) {
+
+                            var shapeDiv = document.getElementById("div_" + shapes[i].imName + "");
+
+                            var shape = document.getElementById(shapes[i].imName);
+                            if (shape != null) {
+
+                                $('#' + shapes[i].imName + '').remove();
+                            }
+
+                            if (shapeDiv != null) {
+
+                                shapeDiv.parentNode.removeChild(shapeDiv);
+                            }
+
+                        }
+
+                        shapes2.length = 0;
+                        shapes.length = 0;
+                        Attachments.length = 0;
+                        CheckLicense();
+                        GetAttachments();
+                        First();
+
+
+                    }
+                    else if ($("#hdnOpp").val() == "addAttachment") {
+                        GetAttachments();
+                    }
+                    else {
+
+
+                        InsertImages(data, 50, 50);
+
+                    }
                 }
                 else {
 
-
-                    InsertImages(data, 50, 50);
-
+                    alert(data);
                 }
-            }
-            else {
+                $(".progress-bar").width('100%');
+                $("#myModal").modal("hide");
 
-                alert(data);
+                $("#fileToUpload").wrap('<form>').parent('form').trigger('reset');
+                $("#fileToUpload").unwrap();
+                $("#fileToUpload").prop('files')[0] = null;
+                $("#fileToUpload").replaceWith($("#fileToUpload"));
+                $(".progress-bar").width('0%');
             }
-            $(".progress-bar").width('100%');
-            $("#myModal").modal("hide");
-
-            $("#fileToUpload").wrap('<form>').parent('form').trigger('reset');
-            $("#fileToUpload").unwrap();
-            $("#fileToUpload").prop('files')[0] = null;
-            $("#fileToUpload").replaceWith($("#fileToUpload"));
-            $(".progress-bar").width('0%');
         }
-    }
 
-    xhr.send(fd);
+        xhr.send(fd);
+    }
+    else
+        alert("Paramètre manquant");
 }
 
 function anchorHitTest(shape,x, y, context) {
@@ -1905,7 +1906,7 @@ function manageFields() {
                     if (shapes[i].fieldType == "Text") {
                         wrapper.className = 'info';
                         wrapper.setAttribute("display", 'block');
-                        var textarea = document.createElement('textarea');
+                        var textarea = document.createElement('input');
                         textarea.className = 'tbox';
                         textarea.value = shapes[i].t;
                         textarea.style.width = (parseInt(shapes[i].w) - 2) + "px";
@@ -2220,8 +2221,7 @@ function closeSignature() {
 }
 
 function onStartup() {
-
-    document.getElementById("btnSave").disabled = false;
+    
     document.getElementById("btnPrevious").disabled = false;
     document.getElementById("btnNext").disabled = false;
 

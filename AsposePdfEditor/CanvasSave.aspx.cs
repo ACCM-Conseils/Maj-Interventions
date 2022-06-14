@@ -23,6 +23,10 @@ namespace AsposePdfEditor
     [ScriptService]
     public partial class CanvasSave : System.Web.UI.Page
     {
+        private static FileCabinet defaultFilecabinet = null;
+        private static String guid = null;
+        private static DocuWare.Platform.ServerClient.Document myDocument;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             ProcessRequest(HttpContext.Current);
@@ -34,7 +38,7 @@ namespace AsposePdfEditor
             {
                 Aspose.Pdf.License license = new Aspose.Pdf.License();
 
-                license.SetLicense(@"C:\Users\conta\Source\Repos\Html5_Pdf_Editor_by_Aspose.Pdf_for_NET\AsposePdfEditor\bin\Aspose.Total.lic");
+                license.SetLicense(@"C:\inetpub\wwwroot\HDN\bin\Aspose.Total.lic");
 
                 if (context.Request.QueryString["Download"] != null)
                 {
@@ -57,13 +61,13 @@ namespace AsposePdfEditor
 
                     //Capture File From Post
 
-                    var idDoc = context.Request.Form["fileToUpload"];
+                    guid = context.Request.Form["fileToUpload"];
 
                     //HttpPostedFile file = context.Request.Files["fileToUpload"];
 
-                    if(!String.IsNullOrEmpty(idDoc))
+                    if(!String.IsNullOrEmpty(guid))
                     { 
-                    ServiceConnection conn = DocuwareProvider.Connect("https://docuwaredevext.altexence.net:444/Docuware/", "Admin", "AdminSFA");
+                    ServiceConnection conn = DocuwareProvider.Connect(System.Configuration.ConfigurationManager.AppSettings["URLDocuware"], System.Configuration.ConfigurationManager.AppSettings["loginDW"], System.Configuration.ConfigurationManager.AppSettings["passDW"]);
 
                         if (conn != null)
                         {
@@ -74,11 +78,11 @@ namespace AsposePdfEditor
 
                             if (fileCabinets.Count() > 0)
                             {
-                                FileCabinet defaultFilecabinet = fileCabinets.Where(f => !f.IsBasket && f.Id == "c78f7dee-bd7c-4cbf-81e6-ab14c01d3b79").First();
+                                defaultFilecabinet = fileCabinets.Where(f => !f.IsBasket && f.Id == System.Configuration.ConfigurationManager.AppSettings["FileCabinetID"]).First();
 
                                 var dialogInfoItems = defaultFilecabinet.GetDialogInfosFromSearchesRelation();
 
-                                var dialog = dialogInfoItems.Dialog.First(m => m.Id == "ba3f9203-5e55-40b1-a729-ca16b4aa0982").GetDialogFromSelfRelation();
+                                var dialog = dialogInfoItems.Dialog.First(m => m.Id == System.Configuration.ConfigurationManager.AppSettings["SearchDialogID"]).GetDialogFromSelfRelation();
 
                                 if (dialog != null)
                                 {
@@ -87,7 +91,7 @@ namespace AsposePdfEditor
                                     {
                                         Condition = new List<DialogExpressionCondition>()
                                             {
-                                                DialogExpressionCondition.Create("DWDOCID", idDoc )
+                                                DialogExpressionCondition.Create("GUID", guid )
                                             },
                                         Count = 1
                                     };
@@ -96,25 +100,25 @@ namespace AsposePdfEditor
 
                                     if (queryResult.Items.Count > 0)
                                     {
-                                        DocuWare.Platform.ServerClient.Document doc = queryResult.Items.First().GetDocumentFromSelfRelation();
+                                        myDocument = queryResult.Items.First().GetDocumentFromSelfRelation();
 
-                                        var downloadedFile = DocuwareProvider.DownloadDocumentContent(doc);
+                                        var downloadedFile = DocuwareProvider.DownloadDocumentContent(myDocument);
 
                                         if (context.Request.Form["Opp"] == "uploading")
                                         {
                                             if (downloadedFile != null)
                                             {
-                                                String pathToFile = Server.MapPath("Convert/input.pdf");
+                                                String pathToFile = System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "input-"+guid+".pdf";
 
                                                 using (var file = System.IO.File.Create(pathToFile))
                                                 using (var stream = downloadedFile.Stream)
                                                     stream.CopyTo(file);
                                             }
-                                            var downloadedFile2 = DocuwareProvider.DownloadDocumentContent(doc);
+                                            var downloadedFile2 = DocuwareProvider.DownloadDocumentContent(myDocument);
 
                                             if (downloadedFile2 != null)
                                             {
-                                                String pathToFile2 = Server.MapPath("Convert/output.pdf");
+                                                String pathToFile2 = System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf";
 
                                                 using (var file2 = System.IO.File.Create(pathToFile2))
                                                 using (var stream = downloadedFile2.Stream)
@@ -178,16 +182,11 @@ namespace AsposePdfEditor
         }
 
         [WebMethod()]
-        public string Download_From_Disk()
+        public static string Download_From_Disk()
         {
             try
             {
-                byte[] fs = System.IO.File.ReadAllBytes(@"C:\Temp\formulaire SLS 2020.pdf");
-
-                File.WriteAllBytes(Server.MapPath("Convert/input.pdf"), fs);
-                File.WriteAllBytes(Server.MapPath("Convert/output.pdf"), fs);
-
-                return ImageConverter();
+               return ImageConverter();
             }
             catch (Exception Exp)
             {
@@ -360,12 +359,34 @@ namespace AsposePdfEditor
         public static void UploadPic(List<shap> shapes , string filename, string aspectRatio)
         {
 
-            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf");
 
                 //Create image stamp
                 ImageStamp imageStamp = new ImageStamp(HttpContext.Current.Server.MapPath("test.png"));
 
-                for (int i = 0; i < shapes.Count; i++)
+            String Telephone1 = string.Empty;
+            String Telephone2 = string.Empty;
+            String Email = string.Empty;
+            try
+            {
+                Telephone1 = shapes[0].t;
+            }
+            catch
+            { }
+            try
+            {
+                Telephone2 = shapes[1].t;
+            }
+            catch
+            { }
+            try
+            {
+                Email = shapes[2].t + "@" + shapes[3].t + "." + shapes[4].t;
+            }
+            catch
+            { }
+
+            for (int i = 0; i < shapes.Count; i++)
                 {
                     //create stamp
                     Aspose.Pdf.Facades.Stamp stamp = new Aspose.Pdf.Facades.Stamp();
@@ -522,9 +543,25 @@ namespace AsposePdfEditor
 
                 }
             
-                doc.Save(HttpContext.Current.Server.MapPath("Convert/Export.pdf"));
+                doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "export-" + guid + ".pdf");
+
+            myDocument = myDocument.GetDocumentFromSelfRelation();
+
+            DocuwareProvider.ReplaceFileContent(myDocument, 0, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "export-" + guid + ".pdf");
+
+            var fields = new DocumentIndexFields()
+            {
+                Field = new List<DocumentIndexField>()
+                {
+                    DocumentIndexField.Create("PORTABLE", Telephone2),
+                    DocumentIndexField.Create("EMAIL", Email),
+                    DocumentIndexField.Create("STATUT", "Renvoyé")
+                }
+            };
+
+            myDocument.PutToFieldsRelationForDocumentIndexFields(fields);
+
             
-           
         }
 
         [WebMethod]
@@ -543,7 +580,8 @@ namespace AsposePdfEditor
         public static string ImageConverter()
         {
 
-            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf");
                 
                 
                 string Aratio = "";
@@ -562,7 +600,7 @@ namespace AsposePdfEditor
 
                 for (int pageCount = 1; pageCount <= TotalPages; pageCount++)
                 {
-                    using (FileStream imageStream = new FileStream(HttpContext.Current.Server.MapPath("Input/image-1" + pageCount + ".png"), FileMode.Create))
+                    using (FileStream imageStream = new FileStream(System.Configuration.ConfigurationManager.AppSettings["tempPath"]+@"Input\" + "image_" + pageCount + ".png", FileMode.Create))
                     {
                         //Create Resolution object
                        // Resolution resolution = new Resolution(150);
@@ -573,11 +611,11 @@ namespace AsposePdfEditor
                         //Close stream
                         imageStream.Close();
 
-                        System.Drawing.Image image = System.Drawing.Image.FromFile(HttpContext.Current.Server.MapPath("Input/image-1" + pageCount + ".png"));
+                        System.Drawing.Image image = System.Drawing.Image.FromFile(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + @"Input\" + "image_" + pageCount + ".png");
 
 
 
-                        ScaleImage(image, 1138, 760, HttpContext.Current.Server.MapPath("Input/image" + pageCount + ".png"), out height, out Aratio);
+                        ScaleImage(image, 1138, 760, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + @"Input\" + "image" + pageCount + ".png", out height, out Aratio);
 
                         image.Dispose();
 
@@ -622,7 +660,7 @@ namespace AsposePdfEditor
                     lowerLeftY += 12;
 
                     double lowerLeftX = formField.Rect.ToRect().X;
-                    lowerLeftX += 20;
+                    lowerLeftX += 15;
                     var fieldType = formField.GetType().Name; //pdfForm.GetFieldType(formField.FullName);
                     var imValue = "";
 
@@ -695,9 +733,7 @@ namespace AsposePdfEditor
                 }
                 catch(Exception e)
                 { }
-            }
-
-            
+            }            
 
             return fields;
 
@@ -729,7 +765,7 @@ namespace AsposePdfEditor
                 {
                     if (pageCount > totalCount)
                     {
-                        using (FileStream imageStream = new FileStream(HttpContext.Current.Server.MapPath("Input/image-1" + pageCount + ".png"), FileMode.Create))
+                        using (FileStream imageStream = new FileStream(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + @"Input\" + "image -"+guid+"-" + pageCount + ".png", FileMode.Create))
                         {
                             //Create Resolution object
                             //Resolution resolution = new Resolution(300);
@@ -740,11 +776,11 @@ namespace AsposePdfEditor
                             //Close stream
                             imageStream.Close();
 
-                            System.Drawing.Image image = System.Drawing.Image.FromFile(HttpContext.Current.Server.MapPath("Input/image-1" + pageCount + ".png"));
+                            System.Drawing.Image image = System.Drawing.Image.FromFile(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + @"Input\" + "image -" + guid + "-" + pageCount + ".png");
 
 
 
-                            ScaleImage(image, 1138, 760, HttpContext.Current.Server.MapPath("Input/image" + pageCount + ".png"), out height, out Aratio);
+                            ScaleImage(image, 1138, 760, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + @"Input\" + "image -"+guid+"-" + pageCount + ".png", out height, out Aratio);
 
                             image.Dispose();
 
@@ -928,7 +964,7 @@ namespace AsposePdfEditor
             string outAttach = "";
 
             // Open document
-            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf")))
+            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf"))
             {
 
                 // Get embedded files collection
@@ -978,26 +1014,7 @@ namespace AsposePdfEditor
         [System.Web.Services.WebMethod()]
         public static bool CheckLicense()
         {
-
-            Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
-
-            // Create TextAbsorber object to extract text
-            TextAbsorber textAbsorber = new TextAbsorber();
-            
-            // Accept the absorber for all the pages
-            pdfDocument.Pages[1].Accept(textAbsorber);
-            
-            // Get the extracted text
-            String extractedText = textAbsorber.Text;
-            
-            if (extractedText.Contains("Evaluation Only. Created with Aspose.Pdf"))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+           return true;
         }
         [WebMethod]
         public static string CreateSignature(string imageData)
@@ -1064,7 +1081,7 @@ namespace AsposePdfEditor
                 for (int pageCount = 1; pageCount <= doc.Pages.Count; pageCount++)
                 {
                     string filename = "Input/" + pageList[pageCount - 1];
-                    filename = filename.Replace("image", "image-1");
+                    //filename = filename.Replace("image", "image-1");
 
                     using (FileStream imageStream = new FileStream(HttpContext.Current.Server.MapPath(filename), FileMode.Create))
                     {
@@ -1100,35 +1117,35 @@ namespace AsposePdfEditor
         public static void Startup()
         {
 
-            System.IO.DirectoryInfo downloadedMessageInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath("Input/"));
+            System.IO.DirectoryInfo downloadedMessageInfo = new DirectoryInfo(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Input/");
 
             foreach (FileInfo file in downloadedMessageInfo.GetFiles())
             {
                 file.Delete();
             }
 
-            downloadedMessageInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath("Attachments/"));
+            downloadedMessageInfo = new DirectoryInfo(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Attachments/");
 
             foreach (FileInfo file in downloadedMessageInfo.GetFiles())
             {
                 file.Delete();
             }
 
-            downloadedMessageInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath("Images/"));
+            downloadedMessageInfo = new DirectoryInfo(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Images/");
 
             foreach (FileInfo file in downloadedMessageInfo.GetFiles())
             {
                 file.Delete();
             }
 
-            downloadedMessageInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath("Images/Signature/"));
+            downloadedMessageInfo = new DirectoryInfo(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Images/Signature/");
 
             foreach (FileInfo file in downloadedMessageInfo.GetFiles())
             {
                 file.Delete();
             }
 
-            downloadedMessageInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath("search/"));
+            downloadedMessageInfo = new DirectoryInfo(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "search/");
 
             foreach (FileInfo file in downloadedMessageInfo.GetFiles())
             {

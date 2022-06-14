@@ -121,25 +121,14 @@
 
 
 <nav class="navbar navbar-inverse" role="navigation">  
-  <h3 style="color:White; text-align:center">Habitat du Nord</h3>
+  <h3 style="color:White; text-align:center">Démo Habitat du Nord</h3>
 </nav>
 <div class="well well-sm">
 
     <!-- Single button -->
-<div class="btn-group">
 
-  <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false" >
-    <span class=" glyphicon glyphicon-upload"></span>
-  </button>
-<ul class="dropdown-menu">  
-  <li><a onclick="javascript:onNewFileClicked('upload')"> Create New File</a></li>
-  <li><a class="open-myModal" data-toggle="modal" data-target="#myModal" data-id="uploading" data-placement="top" title="Upload File to Server">Open From Computer</a></li>
-  <li><a onclick="javascript:onDropboxChooserClicked('upload')">Open From Dropbox</a></li>
-  </ul>   
-</div>
-
-    <button onclick="javascript:generalSetup('Save');UploadPic();return false;" class="btn btn-default btn-lg" id="btnSave" data-toggle="tooltip"  data-placement="top" title="Save Pdf File" disabled=disabled>
-    <span class="glyphicon glyphicon-floppy-disk"></span>
+    <button onclick="javascript:generalSetup('Save');UploadPic();return false;" class="btn btn-default btn-lg btn-primary" id="btnSave" data-toggle="tooltip"  data-placement="top" title="Save Pdf File" disabled=disabled>
+    <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Enregistrer le document complété
     </button>
     <div class="btn-group">
   <ul class="dropdown-menu" role="menu">
@@ -160,19 +149,10 @@
     <button onclick="javascript:generalSetup('Next');Next();$('#divDel').css('visibility', 'hidden');return false;" class="btn btn-default btn-lg" id="btnNext" data-toggle="tooltip" data-placement="top" title="Next Page" disabled=disabled>
      <span class="glyphicon glyphicon-circle-arrow-right"></span>    
     </button>
-    <div class="btn-group">
-  <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="generalSetup('Image');" id="btnImage" disabled=disabled>
-    <span class="glyphicon glyphicon-picture"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a class="open-myModal" data-toggle="modal" data-target="#myModal" data-id="images" data-toggle="tooltip" data-placement="top" title="Insert Image"> From Computer</a></li>
-    <li><a onclick="javascript:onDropboxChooserClicked('image')"> From Dropbox</a></li>    
-  </ul>
-</div>
       
     <div class="btn-group">
-    <button id="btnRect" value="rect"  class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" title="Highlight Mode" onclick="generalSetup('Rect');" disabled=disabled>
-     <span class="glyphicon glyphicon-header"></span>  
+    <button id="btnRect" value="rect"  class="btn btn-default btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Highlight Mode" onclick="generalSetup('Rect');">
+     <span class="glyphicon glyphicon-book"></span>&nbsp Voir la notice d 'utilisation
     </button>
 
     </div>

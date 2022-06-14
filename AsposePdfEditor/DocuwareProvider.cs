@@ -93,9 +93,7 @@ namespace AsposePdfEditor
 
         public static Section ReplaceFileContent(Document document, int index, String CheminFichier)
         {
-            var sections = document.Sections;
-            if (sections == null || sections.Count == 0)
-                sections = document.GetSectionsFromSectionsRelation().Section;
+            var sections = document.GetSectionsFromSectionsRelation().Section;
             return sections[index].ChunkUploadSection(new System.IO.FileInfo(CheminFichier));
         }
     }
