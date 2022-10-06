@@ -17,15 +17,16 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Aspose.Pdf.Forms;
 using DocuWare.Platform.ServerClient;
+using System.Net.Mail;
 
 namespace AsposePdfEditor
 {
     [ScriptService]
     public partial class CanvasSave : System.Web.UI.Page
     {
-        private static FileCabinet defaultFilecabinet = null;
         private static String guid = null;
-        private static DocuWare.Platform.ServerClient.Document myDocument;
+        private static SUPPORTS_INTERVENTIONS inter = new SUPPORTS_INTERVENTIONS();
+        private static OBJETS client = new OBJETS();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -38,27 +39,18 @@ namespace AsposePdfEditor
             {
                 Aspose.Pdf.License license = new Aspose.Pdf.License();
 
-                license.SetLicense(@"C:\inetpub\wwwroot\HDN\bin\Aspose.Total.lic");
+                license.SetLicense(@"C:\temp\Aspose.Total.lic");
 
                 if (context.Request.QueryString["Download"] != null)
                 {
                     context.Response.AddHeader("Content-disposition", "attachment; filename=" + context.Request.QueryString["Download"].Split('/')[1].ToString());
                     context.Response.ContentType = "application/octet-stream";
-                    context.Response.TransmitFile(Server.MapPath(context.Request.QueryString["Download"].ToString()));
+                    context.Response.TransmitFile(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + context.Request.QueryString["Download"].ToString());
                     context.Response.End();
                 }
 
                 else
                 {
-                    /*byte[] fs = System.IO.File.ReadAllBytes(@"C:\Temp\formulaire SLS 2020.pdf");
-
-                    File.WriteAllBytes(Server.MapPath("Convert/input.pdf"), fs);
-                    File.WriteAllBytes(Server.MapPath("Convert/output.pdf"), fs);
-
-                    Startup();
-
-                    context.Response.Write(ImageConverter());*/
-
                     //Capture File From Post
 
                     guid = context.Request.Form["fileToUpload"];
@@ -67,7 +59,25 @@ namespace AsposePdfEditor
 
                     if(!String.IsNullOrEmpty(guid))
                     { 
-                    ServiceConnection conn = DocuwareProvider.Connect(System.Configuration.ConfigurationManager.AppSettings["URLDocuware"], System.Configuration.ConfigurationManager.AppSettings["loginDW"], System.Configuration.ConfigurationManager.AppSettings["passDW"]);
+                        using(var dbContext = new bureaunetEntities())
+                        {
+                            Guid idInter = Guid.Parse(guid);
+
+                            inter = dbContext.SUPPORTS_INTERVENTIONS.FirstOrDefault(m => m.id == idInter);
+
+                            client = dbContext.OBJETS.FirstOrDefault(m => m.ID == inter.client);
+
+                            String pathToFile = System.Configuration.ConfigurationManager.AppSettings["modelPath"];
+
+                            File.Copy(pathToFile, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "input-" + guid + ".pdf");
+                            File.Copy(pathToFile, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf");
+
+                            Startup();
+
+                            context.Response.Write(ImageConverter());
+                        }
+
+                    /*ServiceConnection conn = DocuwareProvider.Connect(System.Configuration.ConfigurationManager.AppSettings["URLDocuware"], System.Configuration.ConfigurationManager.AppSettings["loginDW"], System.Configuration.ConfigurationManager.AppSettings["passDW"]);
 
                         if (conn != null)
                         {
@@ -125,47 +135,14 @@ namespace AsposePdfEditor
                                                     stream.CopyTo(file2);
                                             }
 
-                                            //Or just save it locally
-                                            /*file.SaveAs(Server.MapPath("Convert/input.pdf"));
-
-                                            file.SaveAs(Server.MapPath("Convert/output.pdf"));*/
-
                                             Startup();
 
                                             context.Response.Write(ImageConverter());
                                         }
-                                        /*else if (context.Request.Form["Opp"] == "appending")
-                                        {
-                                            string appPages = context.Request.Form["pages"];
-                                            string appRatios = context.Request.Form["ratios"];
-                                            string appHeights = context.Request.Form["heights"];
-
-                                            //Or just save it locally
-                                            file.SaveAs(Server.MapPath("Convert/append.pdf"));
-
-                                            context.Response.Write(AppendConverter(appPages, appRatios, appHeights));
-                                        }
-                                        else if (context.Request.Form["Opp"] == "addAttachment")
-                                        {
-
-                                            //Or just save it locally
-                                            file.SaveAs(Server.MapPath("Attachments/" + file.FileName));
-                                            AddAttachments(Server.MapPath("Attachments/" + file.FileName), file.FileName);                      
-
-                                            context.Response.Write(file.FileName);
-                                        }
-                                        else
-                                        {
-
-                                            //Or just save it locally
-                                            file.SaveAs(Server.MapPath("Images/" + file.FileName));
-
-                                            context.Response.Write(file.FileName);
-                                        }*/
                                     }
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
             }
@@ -208,8 +185,8 @@ namespace AsposePdfEditor
 
                         // myStringWebResource = remoteUri + fileName;
                         // Download the Web resource and save it into the current filesystem folder.
-                        myWebClient.DownloadFile(file_url, HttpContext.Current.Server.MapPath("Convert/input.pdf"));
-                        myWebClient.DownloadFile(file_url, HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                        myWebClient.DownloadFile(file_url, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/input.pdf");
+                        myWebClient.DownloadFile(file_url, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
                         return ImageConverter();
                     }
@@ -219,7 +196,7 @@ namespace AsposePdfEditor
                         string name = filename[filename.Length - 1];
 
                         // Download the Web resource and save it into the current filesystem folder.
-                        myWebClient.DownloadFile(file_url, HttpContext.Current.Server.MapPath("Images/"+name));
+                        myWebClient.DownloadFile(file_url, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Images/" + name);
 
                         return name;
                     }
@@ -236,19 +213,19 @@ namespace AsposePdfEditor
         {
             try
             {
-                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
                 //insert an empty page at the end of a PDF file
                 doc.Pages.Add();
 
-                doc.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
                 string height = "";
 
                 int counter = GetHighestPage();
                 counter = counter + 1;
 
-                using (FileStream imageStream = new FileStream(HttpContext.Current.Server.MapPath("Input/image-1" + counter + ".png"), FileMode.Create))
+                using (FileStream imageStream = new FileStream(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Input/image-1" + counter + ".png", FileMode.Create))
                 {
                     //Create Resolution object
                     Resolution resolution = new Resolution(300);
@@ -260,8 +237,8 @@ namespace AsposePdfEditor
                     imageStream.Close();
                 }
                 string Aratio = "";
-                System.Drawing.Image image = System.Drawing.Image.FromFile(HttpContext.Current.Server.MapPath("Input/image-1" + counter + ".png"));
-                ScaleImage(image, 1138, 760, HttpContext.Current.Server.MapPath("Input/image" + counter + ".png"), out height, out Aratio);
+                System.Drawing.Image image = System.Drawing.Image.FromFile(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Input/image-1" + counter + ".png");
+                ScaleImage(image, 1138, 760, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Input/image" + counter + ".png", out height, out Aratio);
                 image.Dispose();
                 return "image" + counter + ".png";
             }
@@ -294,13 +271,13 @@ namespace AsposePdfEditor
         {
             try
             {
-                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
                 doc.Pages.Delete(Convert.ToInt32(imageData));
 
-                doc.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
-                System.IO.File.Delete(HttpContext.Current.Server.MapPath("Input/" +imageName));
+                System.IO.File.Delete(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Input/" + imageName);
             }
             catch (Exception Exp)
             {
@@ -318,7 +295,7 @@ namespace AsposePdfEditor
                 int pageTo = Convert.ToInt32(moveTo);
                 List<string> str = pageList.ToList();
 
-                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
                 Aspose.Pdf.Page page = doc.Pages[pageFrom];
 
@@ -338,7 +315,7 @@ namespace AsposePdfEditor
                     str.RemoveAt(pageFrom-1);
                 }
 
-                doc.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
                 pageList = str.ToArray();
 
@@ -362,7 +339,7 @@ namespace AsposePdfEditor
             Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf");
 
                 //Create image stamp
-                ImageStamp imageStamp = new ImageStamp(HttpContext.Current.Server.MapPath("test.png"));
+                ImageStamp imageStamp = new ImageStamp(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "test.png");
 
             String Telephone1 = string.Empty;
             String Telephone2 = string.Empty;
@@ -405,12 +382,11 @@ namespace AsposePdfEditor
 
                         if (shapes[i].Itype == "highlight")
                         {
-                            imageStamp = new ImageStamp(HttpContext.Current.Server.MapPath("test.png"));
+                            imageStamp = new ImageStamp(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "test.png");
                         }
                         else
                         {
-
-                            imageStamp = new ImageStamp(HttpContext.Current.Server.MapPath("Images/"+shapes[i].imName));
+                            imageStamp = new ImageStamp(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Images/"+shapes[i].imName);
                         
                         }
                                                 
@@ -545,7 +521,7 @@ namespace AsposePdfEditor
             
                 doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "export-" + guid + ".pdf");
 
-            myDocument = myDocument.GetDocumentFromSelfRelation();
+            /*myDocument = myDocument.GetDocumentFromSelfRelation();
 
             DocuwareProvider.ReplaceFileContent(myDocument, 0, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "export-" + guid + ".pdf");
 
@@ -559,7 +535,7 @@ namespace AsposePdfEditor
                 }
             };
 
-            myDocument.PutToFieldsRelationForDocumentIndexFields(fields);
+            myDocument.PutToFieldsRelationForDocumentIndexFields(fields);*/
 
             
         }
@@ -571,10 +547,15 @@ namespace AsposePdfEditor
 
             Aspose.Pdf.Document doc = new Aspose.Pdf.Document();
             doc.Pages.Add();
-            doc.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+            doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
 
             return ImageConverter();
+        }
+        [WebMethod]
+        public static string GetClientName()
+        {
+            return client.NOM+Environment.NewLine+client.ADRESSE;
         }
         [WebMethod]
         public static string ImageConverter()
@@ -637,6 +618,7 @@ namespace AsposePdfEditor
                 {
                     fields = fields.Substring(3, fields.Length - 3);
                 }
+
                 return pages + "%#" + Ratios + "%#" + Allheights + "%#" + fields;
            
         }
@@ -657,10 +639,10 @@ namespace AsposePdfEditor
                 {
 
                     double lowerLeftY = (doc.Pages[pageCount].Rect.Height) - (formField.Rect.ToRect().Y + formField.Height);
-                    lowerLeftY += 12;
+                    //lowerLeftY += 12;
 
                     double lowerLeftX = formField.Rect.ToRect().X;
-                    lowerLeftX += 15;
+                    lowerLeftX += 2;
                     var fieldType = formField.GetType().Name; //pdfForm.GetFieldType(formField.FullName);
                     var imValue = "";
 
@@ -743,18 +725,18 @@ namespace AsposePdfEditor
         public static string AppendConverter(string appPages, string appRatios, string appHeights)
         {
 
-            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
-                int totalCount = doc.Pages.Count;
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert /output.pdf");
+            int totalCount = doc.Pages.Count;
 
             //open second document
-            Aspose.Pdf.Document pdfDocument2 = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/append.pdf"));
+            Aspose.Pdf.Document pdfDocument2 = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/append.pdf");
 
                 //add pages of second document to the first
                 doc.Pages.Add(pdfDocument2.Pages);
                                
 
                 //save concatenated output file
-                doc.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
                 string Aratio = "";
                 string pages = "";
@@ -802,7 +784,7 @@ namespace AsposePdfEditor
         [WebMethod]
         public static string btnTextExport_Click(string fileType)
         {
-            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/Export.pdf"));
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/Export.pdf");
 
                 switch (fileType)
                 {
@@ -817,24 +799,24 @@ namespace AsposePdfEditor
                         //get the extracted text
                         string extractedText = textAbsorber.Text;
 
-                        System.IO.File.WriteAllText(HttpContext.Current.Server.MapPath("Convert/output.txt"), extractedText);
+                        System.IO.File.WriteAllText(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert /output.txt", extractedText);
                         return "output.txt";
                     case "pdf":
                         return "Export.pdf";
                     case "docx":
-                        doc.Save(HttpContext.Current.Server.MapPath("Convert/output.docx"), SaveFormat.DocX);
+                        doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.docx", SaveFormat.DocX);
                         return "output.docx";
                     case "svg":
-                        doc.Save(HttpContext.Current.Server.MapPath("Convert/output.svg"), SaveFormat.Svg);
+                        doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.svg", SaveFormat.Svg);
                         return "output.svg";
                     case "xps":
-                        doc.Save(HttpContext.Current.Server.MapPath("Convert/output.xps"), SaveFormat.Xps);
+                        doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.xps", SaveFormat.Xps);
                         return "output.xps";
                     case "xls":
-                        doc.Save(HttpContext.Current.Server.MapPath("Convert/output.xls"), SaveFormat.Excel);
+                        doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.xls", SaveFormat.Excel);
                         return "output.xls";
                     case "html":
-                        doc.Save(HttpContext.Current.Server.MapPath("Convert/output.html"), SaveFormat.Html);
+                        doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.html", SaveFormat.Html);
                         return "output.html";
                     default:
                         return "";
@@ -846,7 +828,7 @@ namespace AsposePdfEditor
 
         public static int GetHighestPage()
         {
-            string[] files = Directory.GetFiles(HttpContext.Current.Server.MapPath("Input/"));
+            string[] files = Directory.GetFiles(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Input/");
             int[] highPage = new int[files.Length];
             for (int i = 0; i < files.Length; i++)
                 highPage[i] = Convert.ToInt32(Path.GetFileName(files[i]).Replace("image", "").Replace(".png", ""));
@@ -859,7 +841,7 @@ namespace AsposePdfEditor
         public static string SearchData(string searchText, string[] pageList)
         {
             string name = DateTime.Now.Millisecond.ToString();
-            System.IO.DirectoryInfo downloadedMessageInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath("search/"));
+            System.IO.DirectoryInfo downloadedMessageInfo = new DirectoryInfo(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "search/");
 
             foreach (FileInfo file in downloadedMessageInfo.GetFiles())
             {
@@ -870,9 +852,9 @@ namespace AsposePdfEditor
                 dir.Delete(true);
             }
 
-            System.IO.Directory.CreateDirectory(HttpContext.Current.Server.MapPath("search/" + name));
+            System.IO.Directory.CreateDirectory(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "search/" + name);
 
-            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
                 
 
@@ -880,7 +862,7 @@ namespace AsposePdfEditor
                 {
                     string filename = "Input/" + pageList[i-1];
                     filename = filename.Replace("image", "image-1");
-                    Bitmap bmp = (Bitmap)Bitmap.FromFile(HttpContext.Current.Server.MapPath(filename));
+                    Bitmap bmp = (Bitmap)Bitmap.FromFile(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + filename);
                     using (System.Drawing.Graphics gr = System.Drawing.Graphics.FromImage(bmp))
                     {
                         float scale = 150 / 72f;
@@ -926,16 +908,15 @@ namespace AsposePdfEditor
                         gr.Dispose();
                     }
 
-                    bmp.Save(HttpContext.Current.Server.MapPath(filename.Replace("image-1","image_search")), System.Drawing.Imaging.ImageFormat.Png);
+                    bmp.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + filename.Replace("image -1","image_search"), System.Drawing.Imaging.ImageFormat.Png);
                     bmp.Dispose();
                    
                     string height = "";
                     string Aratio = "";
-                    System.Drawing.Image image = System.Drawing.Image.FromFile(HttpContext.Current.Server.MapPath(filename.Replace("image-1", "image_search")));
-                    ScaleImage(image, 1138, 760, HttpContext.Current.Server.MapPath("search/" + name + "/" + pageList[i - 1]), out height, out Aratio);
+                    System.Drawing.Image image = System.Drawing.Image.FromFile(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + filename.Replace("image -1", "image_search"));
+                    ScaleImage(image, 1138, 760, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "search/" + name + "/" + pageList[i - 1], out height, out Aratio);
                     image.Dispose();
 
-                  //  System.IO.File.Copy(HttpContext.Current.Server.MapPath("Input/image_search" + i + ".png"), HttpContext.Current.Server.MapPath("Input/image" + i + ".png"));
 
 
                 }
@@ -946,14 +927,14 @@ namespace AsposePdfEditor
         public static string AddAttachments(string path, string filename)
         {
             // Open document
-            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf")))
+            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf"))
             {
                 // Setup new file to be added as attachment
                 FileSpecification fileSpecification = new FileSpecification(path, filename);
                 // Add attachment to document's attachment collection
                 pdfDocument.EmbeddedFiles.Add(fileSpecification);
                 // Save new output
-                pdfDocument.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                pdfDocument.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
             }
             return "success";
         }
@@ -980,7 +961,7 @@ namespace AsposePdfEditor
                     // Get the attachment and write to file or stream
                     byte[] fileContent = new byte[fileSpecification.Contents.Length];
                     fileSpecification.Contents.Read(fileContent, 0, fileContent.Length);
-                    FileStream fileStream = new FileStream(HttpContext.Current.Server.MapPath("Attachments/" + filename[filename.Length - 1]), FileMode.Create);
+                    FileStream fileStream = new FileStream(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Attachments/" + filename[filename.Length - 1], FileMode.Create);
                     fileStream.Write(fileContent, 0, fileContent.Length);
                     fileStream.Close();
                 }
@@ -998,14 +979,14 @@ namespace AsposePdfEditor
         {
 
             // Open document
-            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf")))
+            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf"))
             {
 
                 // Delete all attachments
                 pdfDocument.EmbeddedFiles.Delete(name);
 
                 // Save updated file
-                pdfDocument.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                pdfDocument.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
             }
             return "success";
@@ -1020,7 +1001,7 @@ namespace AsposePdfEditor
         public static string CreateSignature(string imageData)
         {
 
-            System.IO.DirectoryInfo downloadedMessageInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath("Images/Signature/"));
+            System.IO.DirectoryInfo downloadedMessageInfo = new DirectoryInfo(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Images/Signature/");
 
             foreach (FileInfo file in downloadedMessageInfo.GetFiles())
             {
@@ -1028,7 +1009,7 @@ namespace AsposePdfEditor
             }
             Random random = new Random();
             int rand =  random.Next(1000000);
-            string fileNameWitPath = HttpContext.Current.Server.MapPath("Images/Signature/sign"+rand+".png");
+            string fileNameWitPath = System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Images/Signature/sign" + rand+".png";
             using (FileStream fs = new FileStream(fileNameWitPath, FileMode.Create))
             {
                 using (BinaryWriter bw = new BinaryWriter(fs))
@@ -1046,7 +1027,7 @@ namespace AsposePdfEditor
         {
             try
             {
-                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
                 //create TextAbsorber object to find all instances of the input search phrase
                 TextFragmentAbsorber textFragmentAbsorber = new TextFragmentAbsorber("(?i)" + txtFind, new Aspose.Pdf.Text.TextSearchOptions(true));
@@ -1066,11 +1047,11 @@ namespace AsposePdfEditor
                     textFragment.Text = txtReplace;
                 }
 
-                doc.Save(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
-                doc = new Aspose.Pdf.Document(HttpContext.Current.Server.MapPath("Convert/output.pdf"));
+                doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Convert/output.pdf");
 
-                System.IO.DirectoryInfo downloadedMessageInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath("Input/"));
+                System.IO.DirectoryInfo downloadedMessageInfo = new DirectoryInfo(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Input/");
 
                 foreach (FileInfo file in downloadedMessageInfo.GetFiles())
                 {
@@ -1083,7 +1064,7 @@ namespace AsposePdfEditor
                     string filename = "Input/" + pageList[pageCount - 1];
                     //filename = filename.Replace("image", "image-1");
 
-                    using (FileStream imageStream = new FileStream(HttpContext.Current.Server.MapPath(filename), FileMode.Create))
+                    using (FileStream imageStream = new FileStream(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + filename, FileMode.Create))
                     {
                         //Create Resolution object
                         Resolution resolution = new Resolution(300);
@@ -1094,12 +1075,12 @@ namespace AsposePdfEditor
                         //Close stream
                         imageStream.Close();
 
-                        System.Drawing.Image image = System.Drawing.Image.FromFile(HttpContext.Current.Server.MapPath(filename));
+                        System.Drawing.Image image = System.Drawing.Image.FromFile(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + filename);
 
                         string height = "";
                         string Aratio = "";
 
-                        ScaleImage(image, 1138, 760, HttpContext.Current.Server.MapPath(filename.Replace("image-1", "image")), out height, out Aratio);
+                        ScaleImage(image, 1138, 760, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + filename.Replace("image -1", "image"), out height, out Aratio);
 
                         image.Dispose();
 

@@ -121,7 +121,7 @@
 
 
 <nav class="navbar navbar-inverse" role="navigation">  
-  <h3 style="color:White; text-align:center">Démo Habitat du Nord</h3>
+  <h3 style="color:White; text-align:center">Intervention MAJ Informatique</h3>
 </nav>
 <div class="well well-sm">
 
@@ -149,13 +149,6 @@
     <button onclick="javascript:generalSetup('Next');Next();$('#divDel').css('visibility', 'hidden');return false;" class="btn btn-default btn-lg" id="btnNext" data-toggle="tooltip" data-placement="top" title="Next Page" disabled=disabled>
      <span class="glyphicon glyphicon-circle-arrow-right"></span>    
     </button>
-      
-    <div class="btn-group">
-    <a id="btnRect" class="btn btn-default btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Highlight Mode" href="https://docuwaredevext.altexence.net:444/HDN/Notice/Notice.pdf" target="_blank">
-     <span class="glyphicon glyphicon-book"></span>&nbsp Télécharger la notice d 'utilisation
-    </a>
-
-    </div>
 </div>
 
 

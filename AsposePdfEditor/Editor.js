@@ -102,22 +102,22 @@ if (window.addEventListener) {
 
 
             // Get the tool select input.
-            var tool_select = document.getElementById('btnRect');
+            //var tool_select = document.getElementById('btnRect');
             var tool_select2 = document.getElementById('btnRead');
             var tool_select3 = document.getElementById('btnDrag');
             var tool_select4 = document.getElementById('btnTexting');
             var tool_select5 = document.getElementById('btnSignature');
 
-            if (!tool_select) {
-                alert('Error: failed to get the dtool element!');
-                return;
-            }
-            tool_select.addEventListener('click', ev_tool_change);
+            //if (!tool_select) {
+                //alert('Error: failed to get the dtool element!');
+                //return;
+            //}
+            //tool_select.addEventListener('click', ev_tool_change);
 
             // Activate the default tool.
             if (tools[tool_default]) {
                 tool = new tools[tool_default]();
-                tool_select.value = tool_default;
+                //tool_select.value = tool_default;
             }
 
             // Attach the mousedown, mousemove and mouseup event listeners.
@@ -1211,7 +1211,16 @@ function DrawShapes() {
     var i;
     for (i = 0; i < shapes.length; i++) {
         if (shapes[i].f == Npages[currentPage - 1]) {
-          
+
+            if (i == 15) {
+                shapes[i].t = getClientName();
+            }
+            else if (i == 14) {
+                shapes[i].t = "2022092101";
+            }
+            else if (i == 20) {
+                shapes[i].t = "21/09/2022";
+            }
             if (shapes[i].Itype == "highlight") {
                 context.fillStyle = 'rgba(255, 230, 81, 0.5)';
                 context.fillRect(shapes[i].x, shapes[i].y, shapes[i].w, shapes[i].h);
@@ -1903,7 +1912,7 @@ function manageFields() {
                     
 
                     
-                    if (shapes[i].fieldType == "Text") {
+                    if (shapes[i].fieldType == "Text" && i !=15) {
                         wrapper.className = 'info';
                         wrapper.setAttribute("display", 'block');
                         var textarea = document.createElement('input');
@@ -1915,6 +1924,27 @@ function manageFields() {
                         textarea.style.top = "0px";
                         textarea.style.zIndex = 150 + i;
                         
+                        if (shapes[i].st == 'True') {
+                            textarea.style.backgroundColor = '#FFE4E1';
+                        }
+                        textarea.id = shapes[i].imName;
+
+                        wrapper.appendChild(textarea);
+                    }
+                    else if (i == 15) {
+                        wrapper.className = 'info';
+                        wrapper.setAttribute("display", 'block');
+                        var textarea = document.createElement('textarea');
+                        textarea.className = 'tbox';
+                        textarea.value = shapes[i].t;
+                        textarea.style.width = (parseInt(shapes[i].w) - 2) + "px";
+                        textarea.style.height = (parseInt(shapes[i].h) - 2) + "px";
+                        textarea.style.left = "0px";
+                        textarea.style.top = "0px";
+                        textarea.style.zIndex = 150 + i;
+                        textarea.style.textAlign = "center";
+                        textarea.style.fontSize = "18px";
+
                         if (shapes[i].st == 'True') {
                             textarea.style.backgroundColor = '#FFE4E1';
                         }
@@ -2125,6 +2155,28 @@ function RemoveAttachment(name, rowId) {
 
     });
 
+}
+
+function getClientName() {
+    var result = null;
+    $.ajax({
+        type: 'POST',
+        url: 'CanvasSave.aspx/GetClientName',
+        data: {},
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (data, textStatus, jqXHR) {
+            result = data.d;
+        },
+        //call on ajax call failure
+        error: function (xhr, textStatus, error) {
+            //called on ajax call success
+            alert("Error: " + xhr.responseJSON.Message);
+        }
+    });
+
+    return result;
 }
 
 function onNewFileClicked() {

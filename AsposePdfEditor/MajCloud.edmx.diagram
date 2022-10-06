@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dde2e8a279824baca67ef8e766f612bb" Name="Diagram1">
+        <EntityTypeShape EntityType="bureaunetModel.ACCES_BOITES_A_DOCS" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ACCUEIL_MAILS" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ACTIONS" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ACTIVITES" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ACTIVITES_MASTER" Width="1.5" PointX="7.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ACTIVITES_REPERTOIRE" Width="1.5" PointX="9.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ACTIVITES_REPERTOIRE_TYPES" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ADHERENT" Width="1.5" PointX="2.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ADHERENTS_CORRESPONDANTS" Width="1.5" PointX="19.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.AFFAIRES" Width="1.5" PointX="12.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.AFFAIRES_CORRESPONDANTS" Width="1.5" PointX="10.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.AFFAIRES_FICHIERS" Width="1.5" PointX="12.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.AFFAIRES_OBJETS" Width="1.5" PointX="15" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.AGENCES" Width="1.5" PointX="20.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.analytics" Width="1.5" PointX="14.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.APERCU" Width="1.5" PointX="21.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.APPS_DISTRIB" Width="1.5" PointX="16.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ARTICLES" Width="1.5" PointX="18.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ARTICLES_FAMILLES" Width="1.5" PointX="21.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ARTICLES_SSFAMILLES" Width="1.5" PointX="22.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_Membership" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_Paths" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_Profile" Width="1.5" PointX="10.5" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_Roles" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_SchemaVersions" Width="1.5" PointX="22.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_Users" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.aspnet_WebEvent_Events" Width="1.5" PointX="20.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.AUTRES_TIERS_CORRESPONDANTS" Width="1.5" PointX="22.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BACKOFFICE_GEST" Width="1.5" PointX="8" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_ACCES" Width="1.5" PointX="22.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_AVANCEE" Width="1.5" PointX="23.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_DIRECT" Width="1.5" PointX="7.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_DOSSIERS" Width="1.5" PointX="23.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_DOSSIERS_AUTH" Width="1.5" PointX="23.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_DOSSIERS_FAVORIS" Width="1.5" PointX="24.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_DOSSIERS_REFUS" Width="1.5" PointX="24.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_DOSSIERS_REFUS_INTERNES" Width="1.5" PointX="24.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_DOWNLOAD" Width="1.5" PointX="14.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_DROITS_GROUPES" Width="1.5" PointX="24.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_FAVORIS" Width="1.5" PointX="24.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_INTERNE" Width="1.5" PointX="25.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_LIENS" Width="1.5" PointX="0.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_MESSAGES" Width="1.5" PointX="2.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_PRIVE" Width="1.5" PointX="25.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_PUBLIC" Width="1.5" PointX="26.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_PUBLIC_ABONNES" Width="1.5" PointX="26.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_SUBFOLDER" Width="1.5" PointX="26.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BAD_SUBSCRIBE" Width="1.5" PointX="22.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BOITES_A_DOCS" Width="1.5" PointX="24.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_ABO_MODELE" Width="1.5" PointX="26.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_ABO_RUBRIQUE" Width="1.5" PointX="27.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_ABO_SOUS_RUBRIQUE" Width="1.5" PointX="4.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_ACTIONS" Width="1.5" PointX="6.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_ACTIVITES" Width="1.5" PointX="8.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_COMMENTAIRES" Width="1.5" PointX="10.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_COMMENTAIRES_ACTIVITES" Width="1.5" PointX="16.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_COMMENTAIRES_ETAPES" Width="1.5" PointX="27.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_FILES" Width="1.5" PointX="18.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_FILES_AUTH" Width="1.5" PointX="28.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_FILES_CAT" Width="1.5" PointX="28.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_FILES_CONTRAT" Width="1.5" PointX="28.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_FILES_PJ" Width="1.5" PointX="12.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_MURS" Width="1.5" PointX="28.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_QUICKSAVE" Width="1.5" PointX="28.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_REFUS" Width="1.5" PointX="28.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_RUBRIQUES" Width="1.5" PointX="28.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_RUBRIQUES_DROITS" Width="1.5" PointX="29.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_SERVICES" Width="1.5" PointX="0.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_SOUSRUBRIQUES" Width="1.5" PointX="29.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_SUBSCRIBE" Width="1.5" PointX="2.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BWALL_TYPES_HIDE" Width="1.5" PointX="30.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CACHE_MAILS" Width="1.5" PointX="4.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CLIENT" Width="1.5" PointX="30.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CLIENT_CORRESPONDANTS" Width="1.5" PointX="30.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CODE_POSTAUX" Width="1.5" PointX="20.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMMANDES" Width="1.5" PointX="30.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMMERCIAUX" Width="1.5" PointX="30.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMMUN" Width="1.5" PointX="31.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMMUN_DOSSIERS" Width="1.5" PointX="31.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMMUN_DOSSIERS_AUTH" Width="1.5" PointX="12.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMMUN_DOSSIERS_REFUS" Width="1.5" PointX="22.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMMUN_SUBSCRIBE" Width="1.5" PointX="24.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMPTES_BOITES_A_DOCS" Width="1.5" PointX="32.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMPTES_BOITES_A_DOCS_TYPES" Width="1.5" PointX="32.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CONDITIONS_COMMERCIALES" Width="1.5" PointX="32.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CONTACTS_ISOLES" Width="1.5" PointX="32.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CONTACTS_PRIVES" Width="1.5" PointX="32.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ContenuBinaire" Width="1.5" PointX="26.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CONTRAT" Width="1.5" PointX="32.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CONTRATS_ABONNEMENTS" Width="1.5" PointX="33.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.CONTRATS_ABONNEMENTS_CLIENTS" Width="1.5" PointX="0.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DEMANDES_CLIENT" Width="1.5" PointX="6.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DEMARCHE_PROSPECT" Width="1.5" PointX="8.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DEST_APPELS" Width="1.5" PointX="33.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DETAILS_LIGNES_RAPPORTS" Width="1.5" PointX="17" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DIPLOMES" Width="1.5" PointX="14.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DIPLOMES_CANDIDATS" Width="1.5" PointX="28.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DIRECTLINK" Width="1.5" PointX="30.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DOCS_COMMUNS" Width="1.5" PointX="32.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DOSSIERS" Width="1.5" PointX="2.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DOSSIERS_CLIENTS" Width="1.5" PointX="34.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DOSSIERS_DEFAUTS_BAD" Width="1.5" PointX="20" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DOSSIERS_DEFAUTS_GED" Width="1.5" PointX="34.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DOSSIERS_FICHIERS_COMMUNS" Width="1.5" PointX="10.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DOSSIERS_UTILISATEURS" Width="1.5" PointX="34.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DOWNLOAD" Width="1.5" PointX="34.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS" Width="1.5" PointX="20.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS_DOSSIERS_BAD" Width="1.5" PointX="34.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS_DOSSIERS_BAD_AUTH" Width="1.5" PointX="22.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS_DOSSIERS_BAD_EXTERNES" Width="1.5" PointX="34.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS_DOSSIERS_BAD_INTERNES" Width="1.5" PointX="34.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS_DOSSIERS_BAD_USERS" Width="1.5" PointX="34.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS_DOSSIERS_GED" Width="1.5" PointX="35.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS_FICHES" Width="1.5" PointX="11" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS_GROUPES_SECURITES" Width="1.5" PointX="11" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.DROITS_UTILISATEURS" Width="1.5" PointX="35.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ENTITES" Width="1.5" PointX="34.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ENVOI_DIRECT" Width="1.5" PointX="36.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ETATS_FICHIERS" Width="1.5" PointX="15.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.EVENEMENTS_BAD" Width="1.5" PointX="12.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.EVENEMENTS_BAD_LIGNES" Width="1.5" PointX="36.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FAMILLE_CONTRAT" Width="1.5" PointX="36.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FAMILLE_INTERVENTION" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FICHIERS" Width="1.5" PointX="18" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FICHIERS_BAD" Width="1.5" PointX="14.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FICHIERS_COMMUN" Width="1.5" PointX="36.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FICHIERS_DROITS" Width="1.5" PointX="16.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FICHIERS_DROITS_UTILISATEURS" Width="1.5" PointX="36.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FICHIERS_OUVERTS" Width="1.5" PointX="20.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FONCTIONS" Width="1.5" PointX="24.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FORMES_JURIDIQUE" Width="1.5" PointX="36.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FOURNISSEURS" Width="1.5" PointX="26.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.FOURNISSEURS_CORRESPONDANTS" Width="1.5" PointX="36.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.GROUPES_SECURITE" Width="1.5" PointX="8.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.GROUPES_SECURITE_MEMBRES" Width="1.5" PointX="11" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS" Width="1.5" PointX="18.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS_ADMIN" Width="1.5" PointX="28.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS_COMMENTAIRES" Width="1.5" PointX="21" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS_MASQUES" Width="1.5" PointX="36.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS_MODELES" Width="1.5" PointX="36.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS_PJ" Width="1.5" PointX="37.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS_PJ_TEMP" Width="1.5" PointX="2.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS_RUBRIQUES" Width="1.5" PointX="4.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS_RUBRIQUES_REFUS" Width="1.5" PointX="6.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INCIDENTS_SOUSRUBRIQUES" Width="1.5" PointX="8.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INFOS" Width="1.5" PointX="37.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INSTITUTIONNELS_CORRESPONDANTS" Width="1.5" PointX="18.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INTERNES_CORRESPONDANTS" Width="1.5" PointX="20.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INTERVENTION" Width="1.5" PointX="38.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INTERVENTIONS" Width="1.5" PointX="38.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INTERVENTIONS_LIGNES" Width="1.5" PointX="38.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INTERVENTIONS_MODELES" Width="1.5" PointX="38.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.LIGNES_COMMANDES" Width="1.5" PointX="38.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.LINKS" Width="1.5" PointX="38.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.LOGICIELS" Width="1.5" PointX="38.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.LOGICIELS_EXCLUSIONS" Width="1.5" PointX="30.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.LOGS" Width="1.5" PointX="32.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MARQUES" Width="1.5" PointX="38.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MASTERS" Width="1.5" PointX="34.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MASTERS_AGENCES" Width="1.5" PointX="36.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MASTERS_SITES" Width="1.5" PointX="38.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MASTERS_USERS" Width="1.5" PointX="39.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MATERIELS" Width="1.5" PointX="22.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MODELES" Width="1.5" PointX="39.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MODELES_DOSSIERS_DEFAUTS_BAD" Width="1.5" PointX="17.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MODULES" Width="1.5" PointX="0.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MYDOCS" Width="1.5" PointX="2.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.NOM_GROUPES_SECURITE" Width="1.5" PointX="40.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.NOTIFICATIONS" Width="1.5" PointX="4.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.NOTIFICATIONS_DESTS" Width="1.5" PointX="6.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.NOTIFICATIONS_PARAMS" Width="1.5" PointX="8.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.NOTIFICATIONS_TYPES" Width="1.5" PointX="40.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS" Width="1.5" PointX="40.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_ACTIVITES" Width="1.5" PointX="40.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_CORRESPONDANTS" Width="1.5" PointX="40.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_CORRESPONDANTS_ICEWARP" Width="1.5" PointX="38.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_DASHBOARD" Width="1.5" PointX="40.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_DASHBOARD_HISTO" Width="1.5" PointX="41.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_DOMAINES" Width="1.5" PointX="41.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_DROITS" Width="1.5" PointX="10.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_DROITS_MODELES" Width="1.5" PointX="16.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_DROITS_MODELES_USERS" Width="1.5" PointX="18.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_FAVORIS" Width="1.5" PointX="28.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_METIERS" Width="1.5" PointX="42.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_SECTEURS" Width="1.5" PointX="42.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_SUPPORT" Width="1.5" PointX="12.75" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_VERSIONS" Width="1.5" PointX="42.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OBJETS_WORKFLOW" Width="1.5" PointX="24.75" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OPTION_CONTRAT" Width="1.5" PointX="42.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.OPTION_FAMILLE_CONTRAT" Width="1.5" PointX="42.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.ORIGINE_PROSPECT" Width="1.5" PointX="42.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PARAMS" Width="1.5" PointX="42.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PARTENAIRES_CORRESPONDANTS" Width="1.5" PointX="42.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PAYS" Width="1.5" PointX="43.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PERMALINKS" Width="1.5" PointX="2.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PERMALINKS_DROITS" Width="1.5" PointX="4.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PERSO_LINK_MASTER" Width="1.5" PointX="43.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PERSO_MASTER" Width="1.5" PointX="6.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PERSO_MODULES_MASTER" Width="1.5" PointX="30.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PERSO_WORKFLOW" Width="1.5" PointX="36.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PieceJointe" Width="1.5" PointX="42.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.publicites" Width="1.5" PointX="8.75" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.RAPPORTS_INTERVENTIONS" Width="1.5" PointX="44.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.RAPPORTS_LIGNES" Width="1.5" PointX="14.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.RUBRIQUES_RECHERCHE" Width="1.5" PointX="44.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.RUBRIQUES_WORKFLOW_TYPE" Width="1.5" PointX="44.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SAUVEGARDES_CLIENTS" Width="1.5" PointX="14.75" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SAUVEGARDES_CLIENTS_MACHINES" Width="1.5" PointX="44.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SECTEURS" Width="1.5" PointX="16.75" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SECTEURS_MEMBRES" Width="1.5" PointX="18.75" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.sendto" Width="1.5" PointX="44.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.sendto_destinataires" Width="1.5" PointX="44.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.sendto_valid" Width="1.5" PointX="26.75" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SERVEURS_EXTERNES" Width="1.5" PointX="44.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SHAREDLINKS" Width="1.5" PointX="44.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SOUS_DOSSIERS_FICHIERS" Width="1.5" PointX="44.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SOUS_OBJETS_WORKFLOW" Width="1.5" PointX="44.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SUPPORTS" Width="1.5" PointX="38.75" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SUPPRESSIONS_BAD" Width="1.5" PointX="44.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SURVEY" Width="1.5" PointX="44.75" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.sysdiagrams" Width="1.5" PointX="45.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TACHE_FAMILLE_INTERVENTION" Width="1.5" PointX="45.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TACHES_MODELES" Width="1.5" PointX="10.75" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TACHES_MODELES_ETAPES" Width="1.5" PointX="20.75" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TACHES_SUIVIS" Width="1.5" PointX="22.75" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TACHES_SUIVIS_ETAPES" Width="1.5" PointX="44.75" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMP_DEST" Width="1.5" PointX="0.75" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMP_NOTIFICATIONS_BAD" Width="1.5" PointX="2.75" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMP_PJ" Width="1.5" PointX="46.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMP_REDIR_SHARE" Width="1.5" PointX="4.75" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMP_UPLOAD_GED" Width="1.5" PointX="13.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMP_UPLOAD_GED_MOTS" Width="1.5" PointX="16" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMP_UPLOADER" Width="1.5" PointX="46.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMP_WEBMAIL" Width="1.5" PointX="46.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMPLATE_OBJETS" Width="1.5" PointX="46.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TEMPLATES" Width="1.5" PointX="46.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TICKETS" Width="1.5" PointX="46.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TODO" Width="1.5" PointX="46.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TYPES_BOITES_A_DOCS" Width="1.5" PointX="28.75" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TYPES_EVENEMENTS" Width="1.5" PointX="30.75" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TYPES_OBJETS" Width="1.5" PointX="46.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TYPES_OBJETS_ABO" Width="1.5" PointX="46.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TYPES_OBJETS_CACHES" Width="1.5" PointX="46.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TYPES_OBJETS_COMPORTEMENTS" Width="1.5" PointX="46.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TYPES_OBJETS_DROITS_EXCEPTIONS" Width="1.5" PointX="46.75" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TYPES_SUPPORT" Width="1.5" PointX="47.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.UPLOAD_GED" Width="1.5" PointX="13.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.UPLOAD_GED_ARCHIVES" Width="1.5" PointX="12.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.UPLOAD_GED_MOTS" Width="1.5" PointX="16" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.UPLOAD_TEMP" Width="1.5" PointX="47.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS" Width="1.5" PointX="5.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS_EXTERNES" Width="1.5" PointX="14.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS_FAV" Width="1.5" PointX="16.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS_GROUPES" Width="1.5" PointX="24.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS_GROUPES_MEMBERS" Width="1.5" PointX="36.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS_LOGICIELS" Width="1.5" PointX="38.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS_MAILS_STATE" Width="1.5" PointX="46.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS_MATERIELS" Width="1.5" PointX="48.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS_PARAMS" Width="1.5" PointX="6.75" PointY="48.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.Utilisateur" Width="1.5" PointX="8.75" PointY="48.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.VCARDS" Width="1.5" PointX="48.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.VERROUS" Width="1.5" PointX="48.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.VERROUS_GROUPES" Width="1.5" PointX="48.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.VERSIONS" Width="1.5" PointX="48.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.APPS" Width="1.5" PointX="18.75" PointY="48.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.APPS_RESTRICT" Width="1.5" PointX="48.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.AUTRES_TIERS" Width="1.5" PointX="48.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.BOITES_A_DOCS_ACCUSES" Width="1.5" PointX="48.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMMUN_KEYWORDS" Width="1.5" PointX="48.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMMUN_REFUS_INTERNES" Width="1.5" PointX="48.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.COMPTE" Width="1.5" PointX="48.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INSTITUTIONNELS" Width="1.5" PointX="40.75" PointY="48.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.INTERNE" Width="1.5" PointX="48.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.KEYWORDS" Width="1.5" PointX="48.75" PointY="48.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.MAILS" Width="1.5" PointX="49.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.PARTENAIRES" Width="1.5" PointX="0.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.RAPPORTS_TECHNICIENS" Width="1.5" PointX="2.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.SAUVEGARDES" Width="1.5" PointX="49.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TACHE_INTERVENTION" Width="1.5" PointX="26.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TACHES_ETAPES" Width="1.5" PointX="28.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.TARIFICATION" Width="1.5" PointX="30.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bureaunetModel.USERS_EXTERNES_PARAMS" Width="1.5" PointX="42.75" PointY="49.75" IsExpanded="true" />
+        <AssociationConnector Association="bureaunetModel.FK_AFFAIRES_OBJETS_AFFAIRES" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_FICHIERS_AFFAIRES" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK__aspnet_Me__Appli__2B354DF6" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK__aspnet_Pa__Appli__646DCB52" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK__aspnet_Ro__Appli__4D8A65FA" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK__aspnet_Us__Appli__172E5549" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK__aspnet_Me__UserI__2C29722F" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK__aspnet_Pe__PathI__6C0EED1A" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK__aspnet_Pe__PathI__71C7C670" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK__aspnet_Pe__UserI__72BBEAA9" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK__aspnet_Pr__UserI__4218B34E" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_BACKOFFICE_GEST_USERS" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_DETAILS_LIGNES_RAPPORTS_RAPPORTS_LIGNES" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_DOSSIERS_DEFAUTS_BAD_MODELES_DOSSIERS_DEFAUTS_BAD" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_DROITS_FICHES_GROUPES_SECURITE" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_DROITS_GROUPES_SECURITES_GROUPES_SECURITE" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_FICHIERS_ETATS_FICHIERS" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_TYPE_INTERVENTION_TYPE_INTERVENTION" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_TYPE_INTERVENTION_TYPE_INTERVENTION1" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_FICHIERS_OUVERTS_FICHIERS" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_GROUPES_SECURITE_MEMBRES_GROUPES_SECURITE" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_INCIDENTS_COMMENTAIRES_INCIDENTS" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_TEMP_UPLOAD_GED_MOTS_TEMP_UPLOAD_GED" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.FK_UPLOAD_GED_MOTS_UPLOAD_GED" ManuallyRouted="false" />
+        <AssociationConnector Association="bureaunetModel.aspnet_UsersInRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="bureaunetModel.SUPPORTS_INTERVENTIONS" Width="1.5" PointX="21.375" PointY="50.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
