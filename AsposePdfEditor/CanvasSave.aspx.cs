@@ -555,7 +555,7 @@ namespace AsposePdfEditor
         [WebMethod]
         public static string GetClientName()
         {
-            return client.NOM + Environment.NewLine + Environment.NewLine + client.ADRESSE + Environment.NewLine + client.CP + " " + client.VILLE
+            return client.NOM + Environment.NewLine + Environment.NewLine + client.ADRESSE + Environment.NewLine + client.CP + " " + client.VILLE;
         }
         [WebMethod]
         public static string ImageConverter()
