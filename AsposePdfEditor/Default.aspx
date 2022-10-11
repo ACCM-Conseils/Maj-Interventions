@@ -127,7 +127,7 @@
 
     <!-- Single button -->
 
-    <button onclick="javascript:generalSetup('Save');UploadPic();return false;" class="btn btn-default btn-lg btn-primary" id="btnSave" data-toggle="tooltip"  data-placement="top" title="Save Pdf File" disabled=disabled>
+    <button onclick="javascript:generalSetup('Save');UploadPic();return false;" class="btn btn-default btn-lg btn-primary" id="btnSave" data-toggle="tooltip"  data-placement="top" title="Save Pdf File">
     <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Enregistrer le document complété
     </button>
     <div class="btn-group">

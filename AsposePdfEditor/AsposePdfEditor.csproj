@@ -687,6 +687,7 @@
     <Compile Include="MODELES_DOSSIERS_DEFAUTS_BAD.cs">
       <DependentUpon>MajCloud.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SUPPORTS_INTERVENTIONS.cs" />
     <Compile Include="MODULES.cs">
       <DependentUpon>MajCloud.tt</DependentUpon>
     </Compile>

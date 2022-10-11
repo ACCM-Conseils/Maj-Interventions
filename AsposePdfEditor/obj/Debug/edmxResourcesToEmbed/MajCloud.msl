@@ -3889,6 +3889,26 @@
     <EntitySetMapping Name="SUPPORTS_INTERVENTIONS">
       <EntityTypeMapping TypeName="bureaunetModel.SUPPORTS_INTERVENTIONS">
         <MappingFragment StoreEntitySet="SUPPORTS_INTERVENTIONS">
+          <ScalarProperty Name="duree_intervention" ColumnName="duree_intervention" />
+          <ScalarProperty Name="securite" ColumnName="securite" />
+          <ScalarProperty Name="moe" ColumnName="moe" />
+          <ScalarProperty Name="moa" ColumnName="moa" />
+          <ScalarProperty Name="messagerie" ColumnName="messagerie" />
+          <ScalarProperty Name="scan" ColumnName="scan" />
+          <ScalarProperty Name="reseau" ColumnName="reseau" />
+          <ScalarProperty Name="posteclient" ColumnName="posteclient" />
+          <ScalarProperty Name="serveur" ColumnName="serveur" />
+          <ScalarProperty Name="sauvegarde" ColumnName="sauvegarde" />
+          <ScalarProperty Name="config" ColumnName="config" />
+          <ScalarProperty Name="entretien" ColumnName="entretien" />
+          <ScalarProperty Name="depannage" ColumnName="depannage" />
+          <ScalarProperty Name="horscontrat" ColumnName="horscontrat" />
+          <ScalarProperty Name="contratastreinte" ColumnName="contratastreinte" />
+          <ScalarProperty Name="contrat" ColumnName="contrat" />
+          <ScalarProperty Name="commercial" ColumnName="commercial" />
+          <ScalarProperty Name="actions" ColumnName="actions" />
+          <ScalarProperty Name="descriptif" ColumnName="descriptif" />
+          <ScalarProperty Name="ticket" ColumnName="ticket" />
           <ScalarProperty Name="date_intervention" ColumnName="date_intervention" />
           <ScalarProperty Name="technicien" ColumnName="technicien" />
           <ScalarProperty Name="client" ColumnName="client" />

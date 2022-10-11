@@ -4359,5 +4359,25 @@
     <Property Name="client" Type="Guid" />
     <Property Name="technicien" Type="Guid" />
     <Property Name="date_intervention" Type="DateTime" Precision="0" />
+    <Property Name="ticket" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="descriptif" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="actions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="commercial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="contrat" Type="Boolean" />
+    <Property Name="contratastreinte" Type="Boolean" />
+    <Property Name="horscontrat" Type="Boolean" />
+    <Property Name="depannage" Type="Boolean" />
+    <Property Name="entretien" Type="Boolean" />
+    <Property Name="config" Type="Boolean" />
+    <Property Name="sauvegarde" Type="Boolean" />
+    <Property Name="serveur" Type="Boolean" />
+    <Property Name="posteclient" Type="Boolean" />
+    <Property Name="reseau" Type="Boolean" />
+    <Property Name="scan" Type="Boolean" />
+    <Property Name="messagerie" Type="Boolean" />
+    <Property Name="moa" Type="Boolean" />
+    <Property Name="moe" Type="Boolean" />
+    <Property Name="securite" Type="Boolean" />
+    <Property Name="duree_intervention" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

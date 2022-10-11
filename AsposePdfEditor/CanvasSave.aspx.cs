@@ -18,6 +18,7 @@ using System.Text.RegularExpressions;
 using Aspose.Pdf.Forms;
 using DocuWare.Platform.ServerClient;
 using System.Net.Mail;
+using System.Text;
 
 namespace AsposePdfEditor
 {
@@ -27,6 +28,7 @@ namespace AsposePdfEditor
         private static String guid = null;
         private static SUPPORTS_INTERVENTIONS inter = new SUPPORTS_INTERVENTIONS();
         private static OBJETS client = new OBJETS();
+        private static USERS technicien = new USERS();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -66,6 +68,8 @@ namespace AsposePdfEditor
                             inter = dbContext.SUPPORTS_INTERVENTIONS.FirstOrDefault(m => m.id == idInter);
 
                             client = dbContext.OBJETS.FirstOrDefault(m => m.ID == inter.client);
+
+                            technicien = dbContext.USERS.FirstOrDefault(m => m.ID == inter.technicien);
 
                             String pathToFile = System.Configuration.ConfigurationManager.AppSettings["modelPath"];
 
@@ -341,27 +345,157 @@ namespace AsposePdfEditor
                 //Create image stamp
                 ImageStamp imageStamp = new ImageStamp(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "test.png");
 
-            String Telephone1 = string.Empty;
-            String Telephone2 = string.Empty;
-            String Email = string.Empty;
+            String Date = string.Empty;
+            String Technicien = string.Empty;
+            String Duree = string.Empty;
+            String Descriptif = string.Empty;
+            String Afaire = string.Empty;
+            String Commercial = string.Empty;
+            bool Contrat = false;
+            bool ContratAstreinte = false;
+            bool HorsContrat = false;
+            bool Depannage = false;
+            bool Entretien = false;
+            bool Config = false;
+            bool Sauvegarde = false;
+            bool Serveur = false;
+            bool PosteClient = false;
+            bool Securite = false;
+            bool Reseau = false;
+            bool Scan = false;
+            bool Messagerie = false;
+            bool MOA = false;
+            bool MOE = false;
+
             try
             {
-                Telephone1 = shapes[0].t;
+                Depannage = (shapes[6].t == "True") ? true : false;
             }
             catch
             { }
             try
             {
-                Telephone2 = shapes[1].t;
+                Entretien = (shapes[7].t == "True") ? true : false;
             }
             catch
             { }
             try
             {
-                Email = shapes[2].t + "@" + shapes[3].t + "." + shapes[4].t;
+                Config = (shapes[4].t == "True") ? true : false;
             }
             catch
             { }
+            try
+            {
+                Sauvegarde = (shapes[10].t == "True") ? true : false;
+            }
+            catch
+            { }
+            try
+            {
+                Serveur = (shapes[0].t == "True") ? true : false;
+            }
+            catch
+            { }
+            try
+            {
+                PosteClient = (shapes[2].t == "True") ? true : false;
+            }
+            catch
+            { }
+            try
+            {
+                Securite = (shapes[8].t == "True") ? true : false;
+            }
+            catch
+            { }
+            try
+            {
+                Reseau = (shapes[19].t == "True") ? true : false;
+            }
+            catch
+            { }
+            try
+            {
+                Scan = (shapes[1].t == "True") ? true : false;
+            }
+            catch
+            { }
+            try
+            {
+                Messagerie = (shapes[3].t == "True") ? true : false;
+            }
+            catch
+            { }
+            try
+            {
+                MOA = (shapes[9].t == "True") ? true : false;
+            }
+            catch
+            { }
+            try
+            {
+                MOE = (shapes[5].t == "True") ? true : false;
+            }
+            catch
+            { }
+            try
+            {
+                Date = shapes[20].t;
+            }
+            catch
+            { }
+            try
+            {
+                Technicien = shapes[21].t;
+            }
+            catch
+            { }
+            try
+            {
+                Duree = shapes[22].t;
+            }
+            catch
+            { }
+            try
+            {
+                Descriptif = shapes[16].t;
+            }
+            catch
+            { }
+            try
+            {
+                Afaire = shapes[17].t;
+            }
+            catch
+            { }
+            try
+            {
+                Commercial = shapes[18].t;
+            }
+            catch
+            { }
+            try
+            {
+                Contrat = (shapes[11].t == "True") ? true : false;
+            }
+            catch
+            { }
+
+            try
+            {
+                ContratAstreinte = (shapes[12].t == "True") ? true : false;
+            }
+            catch
+            { }
+
+            try
+            {
+                HorsContrat = (shapes[13].t == "True") ? true : false;
+            }
+            catch
+            { }
+
 
             for (int i = 0; i < shapes.Count; i++)
                 {
@@ -521,23 +655,31 @@ namespace AsposePdfEditor
             
                 doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "export-" + guid + ".pdf");
 
-            /*myDocument = myDocument.GetDocumentFromSelfRelation();
-
-            DocuwareProvider.ReplaceFileContent(myDocument, 0, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "export-" + guid + ".pdf");
-
-            var fields = new DocumentIndexFields()
+            using (var dbContext = new bureaunetEntities())
             {
-                Field = new List<DocumentIndexField>()
-                {
-                    DocumentIndexField.Create("PORTABLE", Telephone2),
-                    DocumentIndexField.Create("EMAIL", Email),
-                    DocumentIndexField.Create("STATUT", "Renvoyé")
-                }
-            };
+                SUPPORTS_INTERVENTIONS saved = dbContext.SUPPORTS_INTERVENTIONS.FirstOrDefault(m => m.id == inter.id);
 
-            myDocument.PutToFieldsRelationForDocumentIndexFields(fields);*/
+                saved.date_intervention = DateTime.Parse(Date);
+                saved.descriptif = Descriptif;
+                saved.actions = Afaire;
+                saved.commercial = Commercial;
+                saved.contrat = Contrat;
+                saved.contratastreinte = ContratAstreinte;
+                saved.horscontrat = HorsContrat;
+                saved.depannage = Depannage;
+                saved.entretien = Entretien;
+                saved.config = Config;
+                saved.sauvegarde = Sauvegarde;
+                saved.serveur = Serveur;
+                saved.posteclient = PosteClient;
+                saved.reseau = Reseau;
+                saved.scan = Scan;
+                saved.messagerie = Messagerie;
+                saved.moa = MOA;
+                saved.moe = MOE;
 
-            
+                dbContext.SaveChanges();
+            }
         }
 
         [WebMethod]
@@ -556,6 +698,87 @@ namespace AsposePdfEditor
         public static string GetClientName()
         {
             return client.NOM + Environment.NewLine + Environment.NewLine + client.ADRESSE + Environment.NewLine + client.CP + " " + client.VILLE;
+        }
+        [WebMethod]
+        public static string getTicketNumber()
+        {
+            return inter.ticket;
+        }
+        [WebMethod]
+        public static string getDateInter()
+        {
+            return inter.date_intervention.Value.ToShortDateString();
+        }
+        [WebMethod]
+        public static string getTechnicien()
+        {
+            return technicien.PRENOM + " " + technicien.NOM;
+        }
+        [WebMethod]
+        public static string getField(string name)
+        {
+            switch (name)
+            {
+                case "ClientName":
+                    return client.NOM + Environment.NewLine + Environment.NewLine + client.ADRESSE + Environment.NewLine + client.CP + " " + client.VILLE;
+                case "TicketNumber":
+                    return inter.ticket;
+                case "DateInter":
+                    return inter.date_intervention.Value.ToShortDateString();
+                case "Technicien":
+                    return technicien.PRENOM + " " + technicien.NOM;
+                case "DureeInter":
+                    return inter.duree_intervention;
+                case "Descriptif":
+                    return inter.descriptif;
+                case "Afaire":
+                    return inter.actions;
+                case "Commercial":
+                    return inter.commercial;
+                default:
+                    return string.Empty;
+
+            }
+        }
+        [WebMethod]
+        public static bool getOperation(string name)
+        {
+            switch(name)
+            {
+                case "contrat":
+                    return (bool)inter.contrat;
+                case "contratastreintes":
+                    return (bool)inter.contratastreinte;
+                case "horscontrat":
+                    return (bool)inter.horscontrat;
+                case "depannage":
+                    return (bool)inter.depannage;
+                case "entretien":
+                    return (bool)inter.entretien;
+                case "config":
+                    return (bool)inter.config;
+                case "sauvegarde":
+                    return (bool)inter.sauvegarde;
+                case "serveur":
+                    return (bool)inter.serveur;
+                case "posteclient":
+                    return (bool)inter.posteclient;
+                case "securite":
+                    return (bool)inter.securite;
+                case "reseau":
+                    return (bool)inter.reseau;
+                case "scan":
+                    return (bool)inter.scan;
+                case "messagerie":
+                    return (bool)inter.messagerie;
+                case "moa":
+                    return (bool)inter.moa;
+                case "moe":
+                    return (bool)inter.moe;
+                default:
+                    return false;
+
+            }
         }
         [WebMethod]
         public static string ImageConverter()
@@ -642,7 +865,7 @@ namespace AsposePdfEditor
                     //lowerLeftY += 12;
 
                     double lowerLeftX = formField.Rect.ToRect().X;
-                    lowerLeftX += 2;
+ 
                     var fieldType = formField.GetType().Name; //pdfForm.GetFieldType(formField.FullName);
                     var imValue = "";
 

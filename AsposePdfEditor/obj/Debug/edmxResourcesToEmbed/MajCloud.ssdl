@@ -3039,9 +3039,29 @@ avertissement 6002: La table/vue 'bureaunet.dbo.SAUVEGARDES' n'a pas de clé pri
     </Key>
     <Property Name="id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="id_master" Type="int" />
+    <Property Name="ticket" Type="nvarchar" MaxLength="50" />
     <Property Name="client" Type="uniqueidentifier" />
     <Property Name="technicien" Type="uniqueidentifier" />
     <Property Name="date_intervention" Type="date" />
+    <Property Name="duree_intervention" Type="nvarchar" MaxLength="50" />
+    <Property Name="descriptif" Type="nvarchar(max)" />
+    <Property Name="actions" Type="nvarchar(max)" />
+    <Property Name="commercial" Type="nvarchar(max)" />
+    <Property Name="contrat" Type="bit" />
+    <Property Name="contratastreinte" Type="bit" />
+    <Property Name="horscontrat" Type="bit" />
+    <Property Name="depannage" Type="bit" />
+    <Property Name="entretien" Type="bit" />
+    <Property Name="config" Type="bit" />
+    <Property Name="sauvegarde" Type="bit" />
+    <Property Name="serveur" Type="bit" />
+    <Property Name="posteclient" Type="bit" />
+    <Property Name="securite" Type="bit" />
+    <Property Name="reseau" Type="bit" />
+    <Property Name="scan" Type="bit" />
+    <Property Name="messagerie" Type="bit" />
+    <Property Name="moa" Type="bit" />
+    <Property Name="moe" Type="bit" />
   </EntityType>
   <EntityType Name="SUPPRESSIONS_BAD">
     <Key>
