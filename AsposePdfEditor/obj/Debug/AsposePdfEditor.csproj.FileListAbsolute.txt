@@ -36,3 +36,6 @@ C:\Users\maldo\source\repos\Maj-Cloud-Interventions\AsposePdfEditor\obj\Debug\As
 C:\Users\maldo\source\repos\Maj-Cloud-Interventions\AsposePdfEditor\obj\Debug\AsposePdfEditor.csproj.CopyComplete
 C:\Users\maldo\source\repos\Maj-Cloud-Interventions\AsposePdfEditor\obj\Debug\AsposePdfEditor.dll
 C:\Users\maldo\source\repos\Maj-Cloud-Interventions\AsposePdfEditor\obj\Debug\AsposePdfEditor.pdb
+C:\Users\maldo\source\repos\Maj-Cloud-Interventions\AsposePdfEditor\bin\log4net.dll
+C:\Users\maldo\source\repos\Maj-Cloud-Interventions\AsposePdfEditor\bin\log4net.xml
+C:\Users\maldo\source\repos\Maj-Cloud-Interventions\AsposePdfEditor\bin\fr\EntityFramework.SqlServer.resources.dll

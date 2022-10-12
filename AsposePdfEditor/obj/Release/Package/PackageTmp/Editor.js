@@ -102,22 +102,22 @@ if (window.addEventListener) {
 
 
             // Get the tool select input.
-            var tool_select = document.getElementById('btnRect');
+            //var tool_select = document.getElementById('btnRect');
             var tool_select2 = document.getElementById('btnRead');
             var tool_select3 = document.getElementById('btnDrag');
             var tool_select4 = document.getElementById('btnTexting');
             var tool_select5 = document.getElementById('btnSignature');
 
-            if (!tool_select) {
-                alert('Error: failed to get the dtool element!');
-                return;
-            }
-            tool_select.addEventListener('click', ev_tool_change);
+            //if (!tool_select) {
+                //alert('Error: failed to get the dtool element!');
+                //return;
+            //}
+            //tool_select.addEventListener('click', ev_tool_change);
 
             // Activate the default tool.
             if (tools[tool_default]) {
                 tool = new tools[tool_default]();
-                tool_select.value = tool_default;
+                //tool_select.value = tool_default;
             }
 
             // Attach the mousedown, mousemove and mouseup event listeners.
@@ -430,7 +430,7 @@ if (window.addEventListener) {
                             $('#divDel').css('visibility', 'hidden');
                             document.getElementById('imageView').getContext('2d').width = document.getElementById('imageTemp').getContext('2d').width;
                             drawScreen();
-                            DrawShapes();
+                            DrawShapes(true);
 
                         }
                     }
@@ -475,7 +475,7 @@ if (window.addEventListener) {
 
                     drawScreen();
 
-                    DrawShapes();
+                    DrawShapes(true);
 
                     mouseX = evt.pageX - canvas.offsetLeft;
                     mouseY = evt.pageY - canvas.offsetTop;
@@ -532,7 +532,7 @@ if (window.addEventListener) {
                     
                     drawScreen();
 
-                    DrawShapes();
+                    DrawShapes(true);
 
                     drawRotationHandle(shapes[dragIndex], context);
 
@@ -594,7 +594,7 @@ if (window.addEventListener) {
 
                     drawScreen();
 
-                    DrawShapes();
+                    DrawShapes(true);
 
                     if (shapes[dragIndex].Itype != 'text') {
                         context.strokeStyle = 'brown';
@@ -777,7 +777,7 @@ function saveTextFromArea() {
             shapes[editText].h = parseInt(fontSize);
 
             drawScreen();
-            DrawShapes();
+            DrawShapes(true);
             shapes[editText].w = ctx.measureText(text).width;
         }
         ctx.save();
@@ -809,7 +809,7 @@ function DrawPic(imageId) {
         image1 = 'Input/'.concat(imageId);
     }
     
-    $("#imageView").css('background-image', 'url(' + image1 + "?Dummy="+ rand + ')');
+    $("#imageView").css('background-image', 'url(/viewdoc/' + image1 + "?Dummy="+ rand + ')');
 
     return true;
 
@@ -825,7 +825,7 @@ function Previous() {
         var promise = jQuery.when().promise();
         promise = promise.then(wait);
         promise.done(function () {
-            DrawShapes();
+            DrawShapes(true);
             manageFields();
         });
     }
@@ -939,7 +939,7 @@ function DelShape() {
     drawScreen();
     
     shapes.splice(selectedShape, 1);
-    DrawShapes();
+    DrawShapes(true);
     
     selectedShape = -1;
 }
@@ -954,7 +954,7 @@ function Next() {
         var promise = jQuery.when().promise();
         promise = promise.then(wait);
         promise.done(function () {
-            DrawShapes();
+            DrawShapes(true);
             manageFields();
         });
         
@@ -1060,7 +1060,7 @@ function ClearSearchClicked() {
     var promise = jQuery.when().promise();
     promise = promise.then(wait);
     promise.done(function () {
-        DrawShapes();
+        DrawShapes(true);
     });
 
 
@@ -1073,7 +1073,7 @@ function AfterSearch() {
     var promise = jQuery.when().promise();
     promise = promise.then(wait);
     promise.done(function () {
-        DrawShapes();
+        DrawShapes(true);
     });
 
 
@@ -1115,7 +1115,7 @@ function First() {
 
     DrawPic(Npages[currentPage - 1]);
     document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  sur ' + Npages.length; ;
-    DrawShapes();
+    DrawShapes(true);
 
     manageFields();
 }
@@ -1136,7 +1136,7 @@ function MoveUpdate() {
     
     DrawPic(Npages[currentPage - 1]);
 
-    DrawShapes();
+    DrawShapes(true);
 
     document.getElementById('lblPages').innerHTML = 'Page ' + currentPage + '  sur ' + Npages.length;
 
@@ -1201,7 +1201,7 @@ function drawScreen() {
 
 }
 
-function DrawShapes() {
+function DrawShapes(start) {
 
     var canvas = document.getElementById('imageView');
 
@@ -1211,7 +1211,78 @@ function DrawShapes() {
     var i;
     for (i = 0; i < shapes.length; i++) {
         if (shapes[i].f == Npages[currentPage - 1]) {
-          
+
+            if (start) {
+                if (i == 15) {
+                    shapes[i].t = getField("ClientName");
+                }
+                else if (i == 14) {
+                    shapes[i].t = getField("TicketNumber");
+                }
+                else if (i == 20) {
+                    shapes[i].t = getField("DateInter");
+                }
+                else if (i == 21) {
+                    shapes[i].t = getField("Technicien");
+                }
+                else if (i == 22) {
+                    shapes[i].t = getField("DureeInter");
+                }
+                else if (i == 16) {
+                    shapes[i].t = getField("Descriptif");
+                }
+                else if (i == 17) {
+                    shapes[i].t = getField("Afaire");
+                }
+                else if (i == 18) {
+                    shapes[i].t = getField("Commercial");
+                }
+                else if (i == 11) {
+                    shapes[i].t = (getOperation("contrat")) ? "true" : "false";
+                }
+                else if (i == 12) {
+                    shapes[i].t = (getOperation("contratastreintes")) ? "true" : "false";
+                }
+                else if (i == 13) {
+                    shapes[i].t = (getOperation("horscontrat")) ? "true" : "false";
+                }
+                else if (i == 6) {
+                    shapes[i].t = (getOperation("depannage")) ? "true" : "false";
+                }
+                else if (i == 7) {
+                    shapes[i].t = (getOperation("entretien")) ? "true" : "false";
+                }
+                else if (i == 4) {
+                    shapes[i].t = (getOperation("config")) ? "true" : "false";
+                }
+                else if (i == 10) {
+                    shapes[i].t = (getOperation("sauvegarde")) ? "true" : "false";
+                }
+                else if (i == 0) {
+                    shapes[i].t = (getOperation("serveur")) ? "true" : "false";
+                }
+                else if (i == 2) {
+                    shapes[i].t = (getOperation("posteclient")) ? "true" : "false";
+                }
+                else if (i == 8) {
+                    shapes[i].t = (getOperation("securite")) ? "true" : "false";
+                }
+                else if (i == 19) {
+                    shapes[i].t = (getOperation("reseau")) ? "true" : "false";
+                }
+                else if (i == 1) {
+                    shapes[i].t = (getOperation("scan")) ? "true" : "false";
+                }
+                else if (i == 3) {
+                    shapes[i].t = (getOperation("messagerie")) ? "true" : "false";
+                }
+                else if (i == 9) {
+                    shapes[i].t = (getOperation("moa")) ? "true" : "false";
+                }
+                else if (i == 5) {
+                    shapes[i].t = (getOperation("moe")) ? "true" : "false";
+                }
+            }
             if (shapes[i].Itype == "highlight") {
                 context.fillStyle = 'rgba(255, 230, 81, 0.5)';
                 context.fillRect(shapes[i].x, shapes[i].y, shapes[i].w, shapes[i].h);
@@ -1828,7 +1899,10 @@ function generalSetup(process) {
 
     document.getElementById('imageView').getContext('2d').width = document.getElementById('imageView').getContext('2d').width;
     drawScreen();
-    DrawShapes();
+    if (process == "Save")
+        DrawShapes(false);
+    else
+        DrawShapes(true);
 
     myTools = process;
 }
@@ -1903,7 +1977,7 @@ function manageFields() {
                     
 
                     
-                    if (shapes[i].fieldType == "Text") {
+                    if (shapes[i].fieldType == "Text" && (i !=15 && i != 16 && i != 17 && i !=18)) {
                         wrapper.className = 'info';
                         wrapper.setAttribute("display", 'block');
                         var textarea = document.createElement('input');
@@ -1915,6 +1989,48 @@ function manageFields() {
                         textarea.style.top = "0px";
                         textarea.style.zIndex = 150 + i;
                         
+                        if (shapes[i].st == 'True') {
+                            textarea.style.backgroundColor = '#FFE4E1';
+                        }
+                        textarea.id = shapes[i].imName;
+
+                        wrapper.appendChild(textarea);
+                    }
+                    else if (i == 15) {
+                        wrapper.className = 'info';
+                        wrapper.setAttribute("display", 'block');
+                        var textarea = document.createElement('textarea');
+                        textarea.className = 'tbox';
+                        textarea.value = shapes[i].t;
+                        textarea.style.width = (parseInt(shapes[i].w) - 2) + "px";
+                        textarea.style.height = (parseInt(shapes[i].h) - 2) + "px";
+                        textarea.style.left = "0px";
+                        textarea.style.top = "0px";
+                        textarea.style.zIndex = 150 + i;
+                        textarea.style.textAlign = "center";
+                        textarea.style.fontSize = "18px";
+
+                        if (shapes[i].st == 'True') {
+                            textarea.style.backgroundColor = '#FFE4E1';
+                        }
+                        textarea.id = shapes[i].imName;
+
+                        wrapper.appendChild(textarea);
+                    }
+                    else if (i == 16 || i == 17 || i == 18) {
+                        wrapper.className = 'info';
+                        wrapper.setAttribute("display", 'block');
+                        var textarea = document.createElement('textarea');
+                        textarea.className = 'tbox';
+                        textarea.value = shapes[i].t;
+                        textarea.style.width = (parseInt(shapes[i].w) - 2) + "px";
+                        textarea.style.height = (parseInt(shapes[i].h) - 2) + "px";
+                        textarea.style.left = "0px";
+                        textarea.style.top = "0px";
+                        textarea.style.zIndex = 150 + i;
+                        textarea.style.textAlign = "left";
+                        textarea.style.fontSize = "18px";
+
                         if (shapes[i].st == 'True') {
                             textarea.style.backgroundColor = '#FFE4E1';
                         }
@@ -2125,6 +2241,72 @@ function RemoveAttachment(name, rowId) {
 
     });
 
+}
+
+function getField(operation) {
+    var result = null;
+    $.ajax({
+        type: 'POST',
+        url: 'CanvasSave.aspx/getField',
+        data: '{ "name" : "' + operation + '" }',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (data, textStatus, jqXHR) {
+            result = data.d;
+        },
+        //call on ajax call failure
+        error: function (xhr, textStatus, error) {
+            //called on ajax call success
+            alert("Error: " + xhr.responseJSON.Message);
+        }
+    });
+
+    return result;
+}
+
+function getOperation(operation) {
+    var result = null;
+    $.ajax({
+        type: 'POST',
+        url: 'CanvasSave.aspx/getOperation',
+        data: '{ "name" : "' + operation + '" }',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (data, textStatus, jqXHR) {
+            result = data.d;
+        },
+        //call on ajax call failure
+        error: function (xhr, textStatus, error) {
+            //called on ajax call success
+            alert("Error: " + xhr.responseJSON.Message);
+        }
+    });
+
+    return result;
+}
+
+function getDateInter() {
+    var result = null;
+    $.ajax({
+        type: 'POST',
+        url: 'CanvasSave.aspx/getDateInter',
+        data: {},
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (data, textStatus, jqXHR) {
+            result = data.d;
+        },
+        //call on ajax call failure
+        error: function (xhr, textStatus, error) {
+            //called on ajax call success
+            alert("Error: " + xhr.responseJSON.Message);
+        }
+    });
+
+    return result;
 }
 
 function onNewFileClicked() {

@@ -121,13 +121,13 @@
 
 
 <nav class="navbar navbar-inverse" role="navigation">  
-  <h3 style="color:White; text-align:center">Démo Habitat du Nord</h3>
+  <h3 style="color:White; text-align:center">Intervention MAJ Informatique</h3>
 </nav>
 <div class="well well-sm">
 
     <!-- Single button -->
 
-    <button onclick="javascript:generalSetup('Save');UploadPic();return false;" class="btn btn-default btn-lg btn-primary" id="btnSave" data-toggle="tooltip"  data-placement="top" title="Save Pdf File" disabled=disabled>
+    <button onclick="javascript:generalSetup('Save');UploadPic();return false;" class="btn btn-default btn-lg btn-primary" id="btnSave" data-toggle="tooltip"  data-placement="top" title="Save Pdf File">
     <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Enregistrer le document complété
     </button>
     <div class="btn-group">
@@ -149,13 +149,6 @@
     <button onclick="javascript:generalSetup('Next');Next();$('#divDel').css('visibility', 'hidden');return false;" class="btn btn-default btn-lg" id="btnNext" data-toggle="tooltip" data-placement="top" title="Next Page" disabled=disabled>
      <span class="glyphicon glyphicon-circle-arrow-right"></span>    
     </button>
-      
-    <div class="btn-group">
-    <button id="btnRect" value="rect"  class="btn btn-default btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Highlight Mode" onclick="generalSetup('Rect');">
-     <span class="glyphicon glyphicon-book"></span>&nbsp Voir la notice d 'utilisation
-    </button>
-
-    </div>
 </div>
 
 

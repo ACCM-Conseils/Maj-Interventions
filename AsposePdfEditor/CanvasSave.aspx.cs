@@ -29,6 +29,8 @@ namespace AsposePdfEditor
         private static SUPPORTS_INTERVENTIONS inter = new SUPPORTS_INTERVENTIONS();
         private static OBJETS client = new OBJETS();
         private static USERS technicien = new USERS();
+        private static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,9 +41,20 @@ namespace AsposePdfEditor
         {
             try
             {
+                log.Info("Debut ProcessRequest");
+
                 Aspose.Pdf.License license = new Aspose.Pdf.License();
 
-                license.SetLicense(@"C:\temp\Aspose.Total.lic");
+                try
+                {
+                    license.SetLicense(@"C:\temp\Aspose.Total.lic");
+
+                    log.Info("Licence trouvée");
+                }
+                catch(Exception e)
+                {
+                    log.Error(e);
+                }
 
                 if (context.Request.QueryString["Download"] != null)
                 {
@@ -53,28 +66,46 @@ namespace AsposePdfEditor
 
                 else
                 {
-                    //Capture File From Post
-
+                    //Capture File From Post                  
                     guid = context.Request.Form["fileToUpload"];
+
+                    log.Info("Recherche document ID " + guid);
 
                     //HttpPostedFile file = context.Request.Files["fileToUpload"];
 
-                    if(!String.IsNullOrEmpty(guid))
+                    if (!String.IsNullOrEmpty(guid))
                     { 
                         using(var dbContext = new bureaunetEntities())
                         {
                             Guid idInter = Guid.Parse(guid);
 
-                            inter = dbContext.SUPPORTS_INTERVENTIONS.FirstOrDefault(m => m.id == idInter);
+                            Directory.CreateDirectory(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid);
 
-                            client = dbContext.OBJETS.FirstOrDefault(m => m.ID == inter.client);
+                            try
+                            {
+                                log.Info("Document trouvé : " + dbContext.SUPPORTS_INTERVENTIONS.Where(m => m.id == idInter).Count());
 
-                            technicien = dbContext.USERS.FirstOrDefault(m => m.ID == inter.technicien);
+                                inter = dbContext.SUPPORTS_INTERVENTIONS.FirstOrDefault(m => m.id == idInter);
+
+                                log.Info("Client trouvé : " + dbContext.OBJETS.Where(m => m.ID == inter.client).Count());
+
+                                client = dbContext.OBJETS.FirstOrDefault(m => m.ID == inter.client);
+
+                                log.Info("Technicien trouvé : " + dbContext.USERS.Where(m => m.ID == inter.technicien).Count());
+
+                                technicien = dbContext.USERS.FirstOrDefault(m => m.ID == inter.technicien);
+                            }
+                            catch(Exception e)
+                            {
+                                log.Error(e);
+                            }
 
                             String pathToFile = System.Configuration.ConfigurationManager.AppSettings["modelPath"];
 
-                            File.Copy(pathToFile, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "input-" + guid + ".pdf");
-                            File.Copy(pathToFile, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf");
+                            log.Info("Chemin modèle : " + pathToFile);
+
+                            File.Copy(pathToFile, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/input-" + guid + ".pdf");
+                            File.Copy(pathToFile, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/output-" + guid + ".pdf");
 
                             Startup();
 
@@ -340,10 +371,7 @@ namespace AsposePdfEditor
         public static void UploadPic(List<shap> shapes , string filename, string aspectRatio)
         {
 
-            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf");
-
-                //Create image stamp
-                ImageStamp imageStamp = new ImageStamp(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "test.png");
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/output-" + guid + ".pdf");
 
             String Date = string.Empty;
             String Technicien = string.Empty;
@@ -511,29 +539,7 @@ namespace AsposePdfEditor
 
                     var isSpecial = true;//regexItem.IsMatch(shapes[i].imName);
 
-                    if (shapes[i].Itype == "highlight" || shapes[i].Itype == "image")
-                    {
-
-                        if (shapes[i].Itype == "highlight")
-                        {
-                            imageStamp = new ImageStamp(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "test.png");
-                        }
-                        else
-                        {
-                            imageStamp = new ImageStamp(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "Images/"+shapes[i].imName);
-                        
-                        }
-                                                
-                        imageStamp.Background = false;
-                        imageStamp.XIndent = (float)(shapeX);
-                        imageStamp.YIndent = (float)(yaxis);
-                        imageStamp.Height = shapeH;
-                        imageStamp.Width = shapeW;
-                        
-                        //Add stamp to particular page
-                        doc.Pages[shapes[i].p].AddStamp(imageStamp);
-                    }                   
-                    else if(shapes[i].Itype == "text")
+                    if(shapes[i].Itype == "text")
                     {
 
                     /*
@@ -653,7 +659,7 @@ namespace AsposePdfEditor
 
                 }
             
-                doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "export-" + guid + ".pdf");
+                doc.Save(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/export-" + guid + ".pdf");
 
             using (var dbContext = new bureaunetEntities())
             {
@@ -785,7 +791,7 @@ namespace AsposePdfEditor
         {
 
 
-            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf");
+            Aspose.Pdf.Document doc = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/output-" + guid + ".pdf");
                 
                 
                 string Aratio = "";
@@ -1168,7 +1174,7 @@ namespace AsposePdfEditor
             string outAttach = "";
 
             // Open document
-            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + "output-" + guid + ".pdf"))
+            using (Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/output-" + guid + ".pdf"))
             {
 
                 // Get embedded files collection

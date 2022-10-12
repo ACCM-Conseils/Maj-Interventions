@@ -809,7 +809,7 @@ function DrawPic(imageId) {
         image1 = 'Input/'.concat(imageId);
     }
     
-    $("#imageView").css('background-image', 'url(' + image1 + "?Dummy="+ rand + ')');
+    $("#imageView").css('background-image', 'url(/viewdoc/' + image1 + "?Dummy="+ rand + ')');
 
     return true;
 
