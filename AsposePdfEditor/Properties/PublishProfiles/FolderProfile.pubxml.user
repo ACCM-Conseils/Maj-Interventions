@@ -5,21 +5,21 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\maldo\source\repos\Maj-Cloud-Interventions\AsposePdfEditor\bin\app.publish\</_PublishTargetUrl>
-    <History>True|2022-10-12T16:43:51.6108182Z;False|2022-10-12T18:42:58.3608797+02:00;True|2022-10-12T16:52:22.4859381+02:00;True|2022-10-12T14:12:26.9925356+02:00;True|2022-10-12T13:25:58.8405220+02:00;True|2022-10-12T09:32:19.0591210+02:00;True|2022-06-14T12:24:31.7267504+02:00;True|2022-06-14T12:21:12.7253225+02:00;True|2022-06-14T11:46:30.0250080+02:00;True|2022-06-14T10:03:39.9022440+02:00;True|2022-06-14T09:59:22.7909668+02:00;True|2022-06-14T09:46:58.9538386+02:00;True|2022-06-14T09:46:55.4301208+02:00;True|2022-06-14T09:32:37.6326586+02:00;True|2022-06-14T09:23:44.9283381+02:00;True|2022-06-14T09:12:24.5835861+02:00;True|2022-06-13T16:33:49.8042991+02:00;True|2022-06-13T16:30:58.4628628+02:00;True|2022-06-13T16:27:37.5130181+02:00;True|2022-06-13T16:25:40.1888565+02:00;True|2022-06-13T16:22:42.1689372+02:00;True|2022-06-13T16:19:46.0469917+02:00;True|2022-06-13T16:13:27.0413536+02:00;False|2022-06-13T16:12:10.7736088+02:00;</History>
+    <History>True|2022-10-13T06:48:56.5120984Z;True|2022-10-13T08:47:49.5389722+02:00;True|2022-10-13T08:44:59.5821980+02:00;True|2022-10-13T08:41:34.3825241+02:00;True|2022-10-12T18:43:51.6108182+02:00;False|2022-10-12T18:42:58.3608797+02:00;True|2022-10-12T16:52:22.4859381+02:00;True|2022-10-12T14:12:26.9925356+02:00;True|2022-10-12T13:25:58.8405220+02:00;True|2022-10-12T09:32:19.0591210+02:00;True|2022-06-14T12:24:31.7267504+02:00;True|2022-06-14T12:21:12.7253225+02:00;True|2022-06-14T11:46:30.0250080+02:00;True|2022-06-14T10:03:39.9022440+02:00;True|2022-06-14T09:59:22.7909668+02:00;True|2022-06-14T09:46:58.9538386+02:00;True|2022-06-14T09:46:55.4301208+02:00;True|2022-06-14T09:32:37.6326586+02:00;True|2022-06-14T09:23:44.9283381+02:00;True|2022-06-14T09:12:24.5835861+02:00;True|2022-06-13T16:33:49.8042991+02:00;True|2022-06-13T16:30:58.4628628+02:00;True|2022-06-13T16:27:37.5130181+02:00;True|2022-06-13T16:25:40.1888565+02:00;True|2022-06-13T16:22:42.1689372+02:00;True|2022-06-13T16:19:46.0469917+02:00;True|2022-06-13T16:13:27.0413536+02:00;False|2022-06-13T16:12:10.7736088+02:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="AsposePdfEditor.Master">
-      <publishTime>09/21/2022 10:24:34</publishTime>
+      <publishTime>10/13/2022 08:44:40</publishTime>
     </File>
     <File Include="bin/Aspose.Pdf.dll">
       <publishTime>10/04/2018 23:54:38</publishTime>
     </File>
     <File Include="bin/AsposePdfEditor.dll">
-      <publishTime>10/12/2022 18:43:51</publishTime>
+      <publishTime>10/13/2022 08:48:56</publishTime>
     </File>
     <File Include="bin/AsposePdfEditor.pdb">
-      <publishTime>10/12/2022 18:43:51</publishTime>
+      <publishTime>10/13/2022 08:48:56</publishTime>
     </File>
     <File Include="bin/de/DocuWare.Platform.ServerClient.resources.dll">
       <publishTime>04/08/2021 11:25:06</publishTime>
@@ -67,10 +67,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/09/2022 10:56:53</publishTime>
     </File>
     <File Include="Default.aspx">
-      <publishTime>10/11/2022 13:43:17</publishTime>
+      <publishTime>10/13/2022 08:41:23</publishTime>
     </File>
     <File Include="Editor.js">
-      <publishTime>10/12/2022 09:21:44</publishTime>
+      <publishTime>10/13/2022 08:48:44</publishTime>
     </File>
     <File Include="framely.gif">
       <publishTime>06/09/2022 10:56:53</publishTime>

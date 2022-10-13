@@ -1174,7 +1174,7 @@ function sendFile() {
         data: wholedata,
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        success: function (data, textStatus, jqXHR) { $('#loadingModal').modal('hide'); alert('Enregistrement terminé.'); },
+        success: function (data, textStatus, jqXHR) { $('#loadingModal').modal('hide'); alert('Enregistrement OK.'); window.close(``, `_parent`, ``); },
         //call on ajax call failure
         error: function (xhr, textStatus, error) {
 
