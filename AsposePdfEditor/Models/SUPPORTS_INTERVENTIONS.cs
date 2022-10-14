@@ -15,7 +15,7 @@ namespace AsposePdfEditor
             descriptif = string.Empty;
             actions = string.Empty;
             commercial = string.Empty;
-            contrat = false;
+            contrat = true;
             contratastreinte = false;
             horscontrat = false;
             depannage = false;

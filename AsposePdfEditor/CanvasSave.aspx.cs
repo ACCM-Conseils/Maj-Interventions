@@ -375,11 +375,11 @@ namespace AsposePdfEditor
 
             String Date = string.Empty;
             String Technicien = string.Empty;
-            String Duree = string.Empty;
+            String Duree = "00:00";
             String Descriptif = string.Empty;
             String Afaire = string.Empty;
             String Commercial = string.Empty;
-            bool Contrat = false;
+            bool Contrat = true;
             bool ContratAstreinte = false;
             bool HorsContrat = false;
             bool Depannage = false;
@@ -469,7 +469,7 @@ namespace AsposePdfEditor
             { }
             try
             {
-                Date = shapes[20].t;
+                Date = shapes[22].t;
             }
             catch
             { }
@@ -481,7 +481,7 @@ namespace AsposePdfEditor
             { }
             try
             {
-                Duree = shapes[22].t;
+                Duree = shapes[20].t;
             }
             catch
             { }
@@ -734,7 +734,7 @@ namespace AsposePdfEditor
                 case "Technicien":
                     return technicien.PRENOM + " " + technicien.NOM;
                 case "DureeInter":
-                    return inter.duree_intervention;
+                    return (inter.duree_intervention.Length > 0) ? inter.duree_intervention : "00:00";
                 case "Descriptif":
                     return inter.descriptif;
                 case "Afaire":

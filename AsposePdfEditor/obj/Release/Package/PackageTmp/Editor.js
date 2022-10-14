@@ -728,9 +728,7 @@ if (window.addEventListener) {
         $(".btn-group > .btn").click(function () {
             $(".btn-group > .btn").removeClass("active");
             $(this).addClass("active");
-        });
-
-
+        });        
 
         init();
 
@@ -1219,13 +1217,13 @@ function DrawShapes(start) {
                 else if (i == 14) {
                     shapes[i].t = getField("TicketNumber");
                 }
-                else if (i == 20) {
+                else if (i == 22) {
                     shapes[i].t = getField("DateInter");
                 }
                 else if (i == 21) {
                     shapes[i].t = getField("Technicien");
                 }
-                else if (i == 22) {
+                else if (i == 20) {
                     shapes[i].t = getField("DureeInter");
                 }
                 else if (i == 16) {
@@ -1899,8 +1897,20 @@ function generalSetup(process) {
 
     document.getElementById('imageView').getContext('2d').width = document.getElementById('imageView').getContext('2d').width;
     drawScreen();
-    if (process == "Save")
-        DrawShapes(false);
+    if (process == "Save") {
+        var error = false;
+        if (!$('#11').prop("checked") && !$('#12').prop("checked") && !$('#13').prop("checked"))
+            error = true;
+        if ($('#14').val().length == 0 || $('#16').val().length == 0 || $('#20').val().length == 0 || $('#21').val().length == 0 || $('#22').val().length == 0)
+            error = true;
+        if (error) {
+            alert("Vérifiez les champs obligatoires SVP");
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
+        else
+            DrawShapes(false);
+    }
     else
         DrawShapes(true);
 
