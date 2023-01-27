@@ -15,11 +15,12 @@ namespace AsposePdfEditor
     public partial class SUPPORTS_INTERVENTIONS
     {
         public System.Guid id { get; set; }
-        public Nullable<int> id_master { get; set; }
+        public Nullable<System.Guid> entite { get; set; }
+        public string ticket { get; set; }
         public Nullable<System.Guid> client { get; set; }
         public Nullable<System.Guid> technicien { get; set; }
         public Nullable<System.DateTime> date_intervention { get; set; }
-        public string ticket { get; set; }
+        public string duree_intervention { get; set; }
         public string descriptif { get; set; }
         public string actions { get; set; }
         public string commercial { get; set; }
@@ -32,12 +33,11 @@ namespace AsposePdfEditor
         public Nullable<bool> sauvegarde { get; set; }
         public Nullable<bool> serveur { get; set; }
         public Nullable<bool> posteclient { get; set; }
+        public Nullable<bool> securite { get; set; }
         public Nullable<bool> reseau { get; set; }
         public Nullable<bool> scan { get; set; }
         public Nullable<bool> messagerie { get; set; }
         public Nullable<bool> moa { get; set; }
         public Nullable<bool> moe { get; set; }
-        public Nullable<bool> securite { get; set; }
-        public string duree_intervention { get; set; }
     }
 }

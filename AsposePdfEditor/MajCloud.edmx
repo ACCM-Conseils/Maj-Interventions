@@ -3043,7 +3043,7 @@ avertissement 6002: La table/vue 'bureaunet.dbo.SAUVEGARDES' n'a pas de clé pri
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="id_master" Type="int" />
+          <Property Name="entite" Type="uniqueidentifier" />
           <Property Name="ticket" Type="nvarchar" MaxLength="50" />
           <Property Name="client" Type="uniqueidentifier" />
           <Property Name="technicien" Type="uniqueidentifier" />
@@ -8956,11 +8956,12 @@ avertissement 6002: La table/vue 'bureaunet.dbo.USERS_EXTERNES_PARAMS' n'a pas d
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="id_master" Type="Int32" />
+          <Property Name="entite" Type="Guid" />
+          <Property Name="ticket" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="client" Type="Guid" />
           <Property Name="technicien" Type="Guid" />
           <Property Name="date_intervention" Type="DateTime" Precision="0" />
-          <Property Name="ticket" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="duree_intervention" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="descriptif" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="actions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="commercial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -8973,13 +8974,12 @@ avertissement 6002: La table/vue 'bureaunet.dbo.USERS_EXTERNES_PARAMS' n'a pas d
           <Property Name="sauvegarde" Type="Boolean" />
           <Property Name="serveur" Type="Boolean" />
           <Property Name="posteclient" Type="Boolean" />
+          <Property Name="securite" Type="Boolean" />
           <Property Name="reseau" Type="Boolean" />
           <Property Name="scan" Type="Boolean" />
           <Property Name="messagerie" Type="Boolean" />
           <Property Name="moa" Type="Boolean" />
           <Property Name="moe" Type="Boolean" />
-          <Property Name="securite" Type="Boolean" />
-          <Property Name="duree_intervention" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -12875,13 +12875,12 @@ avertissement 6002: La table/vue 'bureaunet.dbo.USERS_EXTERNES_PARAMS' n'a pas d
           <EntitySetMapping Name="SUPPORTS_INTERVENTIONS">
             <EntityTypeMapping TypeName="bureaunetModel.SUPPORTS_INTERVENTIONS">
               <MappingFragment StoreEntitySet="SUPPORTS_INTERVENTIONS">
-                <ScalarProperty Name="duree_intervention" ColumnName="duree_intervention" />
-                <ScalarProperty Name="securite" ColumnName="securite" />
                 <ScalarProperty Name="moe" ColumnName="moe" />
                 <ScalarProperty Name="moa" ColumnName="moa" />
                 <ScalarProperty Name="messagerie" ColumnName="messagerie" />
                 <ScalarProperty Name="scan" ColumnName="scan" />
                 <ScalarProperty Name="reseau" ColumnName="reseau" />
+                <ScalarProperty Name="securite" ColumnName="securite" />
                 <ScalarProperty Name="posteclient" ColumnName="posteclient" />
                 <ScalarProperty Name="serveur" ColumnName="serveur" />
                 <ScalarProperty Name="sauvegarde" ColumnName="sauvegarde" />
@@ -12894,11 +12893,12 @@ avertissement 6002: La table/vue 'bureaunet.dbo.USERS_EXTERNES_PARAMS' n'a pas d
                 <ScalarProperty Name="commercial" ColumnName="commercial" />
                 <ScalarProperty Name="actions" ColumnName="actions" />
                 <ScalarProperty Name="descriptif" ColumnName="descriptif" />
-                <ScalarProperty Name="ticket" ColumnName="ticket" />
+                <ScalarProperty Name="duree_intervention" ColumnName="duree_intervention" />
                 <ScalarProperty Name="date_intervention" ColumnName="date_intervention" />
                 <ScalarProperty Name="technicien" ColumnName="technicien" />
                 <ScalarProperty Name="client" ColumnName="client" />
-                <ScalarProperty Name="id_master" ColumnName="id_master" />
+                <ScalarProperty Name="ticket" ColumnName="ticket" />
+                <ScalarProperty Name="entite" ColumnName="entite" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

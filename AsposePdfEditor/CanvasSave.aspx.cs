@@ -100,9 +100,22 @@ namespace AsposePdfEditor
                                 log.Error(e);
                             }
 
-                            String pathToFile = System.Configuration.ConfigurationManager.AppSettings["modelPath"];
+                            String pathToFile = "";
+                            
+                            if(dbContext.SUPPORTS_INTERVENTIONS.FirstOrDefault(m => m.id == idInter).entite == Guid.Parse("e7679af4-ff2d-4e94-b8b7-b237fc388939"))
+                                pathToFile = System.Configuration.ConfigurationManager.AppSettings["modelPath"];
+                            else
+                                pathToFile = System.Configuration.ConfigurationManager.AppSettings["modelPathRC2"];
 
                             log.Info("Chemin modèle : " + pathToFile);
+
+                            try
+                            {
+                                File.Delete(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/input-" + guid + ".pdf");
+                                File.Delete(System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/output-" + guid + ".pdf");
+                            }
+                            catch
+                            { }
 
                             File.Copy(pathToFile, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/input-" + guid + ".pdf");
                             File.Copy(pathToFile, System.Configuration.ConfigurationManager.AppSettings["tempPath"] + guid + "/output-" + guid + ".pdf");
@@ -683,6 +696,7 @@ namespace AsposePdfEditor
                 saved.messagerie = Messagerie;
                 saved.moa = MOA;
                 saved.moe = MOE;
+                saved.duree_intervention = Duree;
 
                 dbContext.SaveChanges();
             }
